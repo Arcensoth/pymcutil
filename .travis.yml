@@ -1,0 +1,21 @@
+language: python
+
+python:
+  - "3.6"
+  - "3.6-dev"
+  - "3.7-dev"
+  - "nightly"
+
+install:
+  - pip install -r requirements.txt
+
+# just run the tests first
+script:
+  - python -m unittest discover tests
+
+# if the tests succeed, then run coverage
+after_success:
+  - pip install coverage
+  - coverage run --source pymcutil -m unittest discover tests
+  - pip install python-coveralls
+  - coveralls
