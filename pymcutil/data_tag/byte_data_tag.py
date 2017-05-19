@@ -20,7 +20,7 @@ class ByteDataTag(DataTag):
     def value(self, value):
         value = int(value)
         if not (BYTE_MIN <= value <= BYTE_MAX):
-            raise ValueError(f'Value exceeds byte capacity: {value}')
+            raise ValueError(f'Value exceeds capacity of a byte: {value}')
         self._value = value
 
     def to_str(self) -> str:
