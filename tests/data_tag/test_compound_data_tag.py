@@ -1,12 +1,6 @@
 import unittest
 
-from pymcutil.data_tag.byte_data_tag import ByteDataTag
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
-from pymcutil.data_tag.double_data_tag import DoubleDataTag
-from pymcutil.data_tag.float_data_tag import FloatDataTag
-from pymcutil.data_tag.int_data_tag import IntDataTag
-from pymcutil.data_tag.long_data_tag import LongDataTag
-from pymcutil.data_tag.short_data_tag import ShortDataTag
 from pymcutil.data_tag.string_data_tag import StringDataTag
 
 
@@ -102,52 +96,49 @@ class CompoundDataTagTestCase(unittest.TestCase):
         self.assertEqual(dt.to_str(), r'{mykey:"my\"value"}')
 
     def test_byte_data_tag_conversion(self):
-        dt = CompoundDataTag(mybyte=ByteDataTag(True))
+        dt = CompoundDataTag(mybyte=True)
         self.assertEqual(dt.to_str(), '{mybyte:1b}')
 
-    def test_short_data_tag_conversion(self):
-        dt = CompoundDataTag(myshort=ShortDataTag(1234))
-        self.assertEqual(dt.to_str(), '{myshort:1234s}')
-
     def test_int_data_tag_conversion(self):
-        dt = CompoundDataTag(myint=IntDataTag(123456789))
+        dt = CompoundDataTag(myint=123456789)
         self.assertEqual(dt.to_str(), '{myint:123456789}')
 
-    def test_long_data_tag_conversion(self):
-        dt = CompoundDataTag(mylong=LongDataTag(111222333444555))
-        self.assertEqual(dt.to_str(), '{mylong:111222333444555l}')
-
     def test_float_data_tag_conversion(self):
-        dt = CompoundDataTag(myfloat=FloatDataTag(123.5))
+        dt = CompoundDataTag(myfloat=123.5)
         self.assertEqual(dt.to_str(), '{myfloat:123.5f}')
 
-    def test_double_data_tag_conversion(self):
-        dt = CompoundDataTag(mydouble=DoubleDataTag(456.5))
-        self.assertEqual(dt.to_str(), '{mydouble:456.5d}')
-
     def test_string_data_tag_conversion(self):
-        dt = CompoundDataTag(mystring=StringDataTag('hello'))
+        dt = CompoundDataTag(mystring='hello')
         self.assertEqual(dt.to_str(), '{mystring:hello}')
 
+    def test_list_data_tag_conversion(self):
+        dt = CompoundDataTag(mylist=[])
+        self.assertEqual(dt.to_str(), '{mylist:[]}')
+
     def test_compound_data_tag_conversion(self):
-        dt = CompoundDataTag(inner=CompoundDataTag(innerkey='innervalue'))
-        self.assertEqual(dt.to_str(), '{inner:{innerkey:innervalue}}')
+        dt = CompoundDataTag(mycompound={})
+        self.assertEqual(dt.to_str(), '{mycompound:{}}')
 
     def test_deep_compound_data_tag_conversion(self):
         dt = CompoundDataTag(one=dict(two={'three': dict(four='five')}))
         self.assertEqual(dt.to_str(), '{one:{two:{three:{four:five}}}}')
 
-    def test_everything(self):
+    def test_all_conversions(self):
         dt = CompoundDataTag(
-            mystring='somestring',
             mybyte=True,
+            myint=123456789,
+            myfloat=123.5,
+            mystring='somestring',
+            myemptylist=[],
             myemptycompound={},
             mycompound=dict(
-                myinnerstring='someinnerstring',
                 myinnerbyte=False,
-                myinneremptycompound={}))
+                myinnerint=987654321,
+                myinnerfloat=321.5,
+                myinnerstring='someinnerstring',
+                myinneremptycompound=dict()))
         self.assertEqual(
             dt.to_str(),
-            '{mystring:somestring,mybyte:1b,myemptycompound:{},mycompound:'
-            '{myinnerstring:someinnerstring,myinnerbyte:0b,myinneremptycompound:{}}'
-            '}')
+            '{mybyte:1b,myint:123456789,myfloat:123.5f,mystring:somestring,myemptylist:[],myemptycompound:{},'
+            'mycompound:{myinnerbyte:0b,myinnerint:987654321,myinnerfloat:321.5f,myinnerstring:someinnerstring,'
+            'myinneremptycompound:{}}}')
