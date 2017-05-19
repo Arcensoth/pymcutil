@@ -12,8 +12,8 @@ def data_taggify(obj):
         from pymcutil.data_tag.int_data_tag import IntDataTag
         return IntDataTag(obj)
     elif isinstance(obj, float):
-        from pymcutil.data_tag.float_data_tag import FloatDataTag
-        return FloatDataTag(obj)
+        from pymcutil.data_tag.double_data_tag import DoubleDataTag
+        return DoubleDataTag(obj)
     elif isinstance(obj, str):
         from pymcutil.data_tag.string_data_tag import StringDataTag
         return StringDataTag(obj)

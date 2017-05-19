@@ -21,4 +21,5 @@ class DoubleDataTag(DataTag):
         self._value = value
 
     def to_str(self) -> str:
+        # Doubles are the default data tag for any decimal value, however they do have a suffix.
         return f'{self.value}d'

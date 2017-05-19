@@ -103,9 +103,9 @@ class CompoundDataTagTestCase(unittest.TestCase):
         dt = CompoundDataTag(myint=123456789)
         self.assertEqual(dt.to_str(), '{myint:123456789}')
 
-    def test_float_data_tag_conversion(self):
-        dt = CompoundDataTag(myfloat=123.5)
-        self.assertEqual(dt.to_str(), '{myfloat:123.5f}')
+    def test_double_data_tag_conversion(self):
+        dt = CompoundDataTag(mydouble=123.5)
+        self.assertEqual(dt.to_str(), '{mydouble:123.5d}')
 
     def test_string_data_tag_conversion(self):
         dt = CompoundDataTag(mystring='hello')
@@ -127,18 +127,18 @@ class CompoundDataTagTestCase(unittest.TestCase):
         dt = CompoundDataTag(
             mybyte=True,
             myint=123456789,
-            myfloat=123.5,
+            mydouble=123.5,
             mystring='somestring',
             myemptylist=[],
             myemptycompound={},
             mycompound=dict(
                 myinnerbyte=False,
                 myinnerint=987654321,
-                myinnerfloat=321.5,
+                myinnerdouble=321.5,
                 myinnerstring='someinnerstring',
                 myinneremptycompound=dict()))
         self.assertEqual(
             dt.to_str(),
-            '{mybyte:1b,myint:123456789,myfloat:123.5f,mystring:somestring,myemptylist:[],myemptycompound:{},'
-            'mycompound:{myinnerbyte:0b,myinnerint:987654321,myinnerfloat:321.5f,myinnerstring:someinnerstring,'
+            '{mybyte:1b,myint:123456789,mydouble:123.5d,mystring:somestring,myemptylist:[],myemptycompound:{},'
+            'mycompound:{myinnerbyte:0b,myinnerint:987654321,myinnerdouble:321.5d,myinnerstring:someinnerstring,'
             'myinneremptycompound:{}}}')

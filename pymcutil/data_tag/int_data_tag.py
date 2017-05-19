@@ -24,5 +24,5 @@ class IntDataTag(DataTag):
         self._value = value
 
     def to_str(self) -> str:
-        # Ints are the default data tag for any integer value, and as such lack a suffix.
+        # Ints are the default data tag for any integer value, and lack a suffix entirely.
         return f'{self.value}'

@@ -66,7 +66,7 @@ class ListDataTagTestCase(unittest.TestCase):
 
     def test_init_with_many_values(self):
         dt = ListDataTag([True, 123456789, 123.5, 'mystring', [], {}])
-        self.assertEqual(dt.to_str(), '[1b,123456789,123.5f,mystring,[],{}]')
+        self.assertEqual(dt.to_str(), '[1b,123456789,123.5d,mystring,[],{}]')
 
     def test_append_with_many_values(self):
         dt = ListDataTag()
@@ -76,13 +76,13 @@ class ListDataTagTestCase(unittest.TestCase):
         dt.append('mystring')
         dt.append([])
         dt.append({})
-        self.assertEqual(dt.to_str(), '[1b,123456789,123.5f,mystring,[],{}]')
+        self.assertEqual(dt.to_str(), '[1b,123456789,123.5d,mystring,[],{}]')
 
     def test_addition_with_many_values(self):
         dt = ListDataTag()
         dt += [True, 123456789, 123.5, 'mystring', [], {}]
-        self.assertEqual(dt.to_str(), '[1b,123456789,123.5f,mystring,[],{}]')
+        self.assertEqual(dt.to_str(), '[1b,123456789,123.5d,mystring,[],{}]')
 
     def test_deep_conversion(self):
         dt = ListDataTag([[[[[True, 123456789, 123.5, 'mystring', [], {}]]]]])
-        self.assertEqual(dt.to_str(), '[[[[[1b,123456789,123.5f,mystring,[],{}]]]]]')
+        self.assertEqual(dt.to_str(), '[[[[[1b,123456789,123.5d,mystring,[],{}]]]]]')
