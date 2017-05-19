@@ -10,8 +10,12 @@ class CompoundDataTag(DataTag, MutableMapping):
 
     def __init__(self, *args, **kwargs):
         self._mapping = {}
+
+        # Assume all unnamed args are mappings that can be inherited from.
         for arg in args:
             self.update(**arg)
+
+        # Update from all named args.
         self.update(kwargs)
 
     def __delitem__(self, key):
