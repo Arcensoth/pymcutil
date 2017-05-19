@@ -46,3 +46,5 @@ class ListDataTagTestCase(unittest.TestCase):
     def test_multi_nonempty_lists(self):
         dt = ListDataTag(['first'], ['second'])
         self.assertEqual(dt.to_str(), '[[first],[second]]')
+
+    # TODO more thorough list tests
