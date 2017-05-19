@@ -1,3 +1,4 @@
+from pymcutil.constants import BYTE_MIN, BYTE_MAX
 from pymcutil.data_tag import DataTag
 
 
@@ -18,7 +19,7 @@ class ByteDataTag(DataTag):
     @value.setter
     def value(self, value):
         value = int(value)
-        if not (-128 <= value <= 127):
+        if not (BYTE_MIN <= value <= BYTE_MAX):
             raise ValueError(f'Value exceeds byte capacity: {value}')
         self._value = value
 

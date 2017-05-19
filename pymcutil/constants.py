@@ -1,0 +1,2 @@
+BYTE_MIN = -128
+BYTE_MAX = 127
