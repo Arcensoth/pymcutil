@@ -1,6 +1,12 @@
 import unittest
 
+from pymcutil.data_tag.byte_data_tag import ByteDataTag
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
+from pymcutil.data_tag.double_data_tag import DoubleDataTag
+from pymcutil.data_tag.float_data_tag import FloatDataTag
+from pymcutil.data_tag.int_data_tag import IntDataTag
+from pymcutil.data_tag.long_data_tag import LongDataTag
+from pymcutil.data_tag.short_data_tag import ShortDataTag
 from pymcutil.data_tag.string_data_tag import StringDataTag
 
 
@@ -96,11 +102,35 @@ class CompoundDataTagTestCase(unittest.TestCase):
         self.assertEqual(dt.to_str(), r'{mykey:"my\"value"}')
 
     def test_byte_data_tag_conversion(self):
-        dt = CompoundDataTag(open=True)
-        self.assertEqual(dt.to_str(), '{open:1b}')
+        dt = CompoundDataTag(mybyte=ByteDataTag(True))
+        self.assertEqual(dt.to_str(), '{mybyte:1b}')
+
+    def test_short_data_tag_conversion(self):
+        dt = CompoundDataTag(myshort=ShortDataTag(1234))
+        self.assertEqual(dt.to_str(), '{myshort:1234s}')
+
+    def test_int_data_tag_conversion(self):
+        dt = CompoundDataTag(myint=IntDataTag(123456789))
+        self.assertEqual(dt.to_str(), '{myint:123456789}')
+
+    def test_long_data_tag_conversion(self):
+        dt = CompoundDataTag(mylong=LongDataTag(111222333444555))
+        self.assertEqual(dt.to_str(), '{mylong:111222333444555l}')
+
+    def test_float_data_tag_conversion(self):
+        dt = CompoundDataTag(myfloat=FloatDataTag(123.5))
+        self.assertEqual(dt.to_str(), '{myfloat:123.5f}')
+
+    def test_double_data_tag_conversion(self):
+        dt = CompoundDataTag(mydouble=DoubleDataTag(456.5))
+        self.assertEqual(dt.to_str(), '{mydouble:456.5d}')
+
+    def test_string_data_tag_conversion(self):
+        dt = CompoundDataTag(mystring=StringDataTag('hello'))
+        self.assertEqual(dt.to_str(), '{mystring:hello}')
 
     def test_compound_data_tag_conversion(self):
-        dt = CompoundDataTag(inner=dict(innerkey='innervalue'))
+        dt = CompoundDataTag(inner=CompoundDataTag(innerkey='innervalue'))
         self.assertEqual(dt.to_str(), '{inner:{innerkey:innervalue}}')
 
     def test_deep_compound_data_tag_conversion(self):
