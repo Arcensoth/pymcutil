@@ -28,12 +28,12 @@ class ByteDataTagTestCase(unittest.TestCase):
     def test_min(self):
         dt = ByteDataTag(BYTE_MIN)
         self.assertEqual(dt.value, BYTE_MIN)
-        self.assertEqual(dt.to_str(), f'{BYTE_MIN}s')
+        self.assertEqual(dt.to_str(), f'{BYTE_MIN}b')
 
     def test_max(self):
         dt = ByteDataTag(BYTE_MAX)
         self.assertEqual(dt.value, BYTE_MAX)
-        self.assertEqual(dt.to_str(), f'{BYTE_MAX}s')
+        self.assertEqual(dt.to_str(), f'{BYTE_MAX}b')
 
     def test_too_low(self):
         with self.assertRaises(ValueError):
