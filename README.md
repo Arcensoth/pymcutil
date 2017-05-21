@@ -12,4 +12,4 @@ Minecraft utilities for Python.
 [Master Build Status]: https://img.shields.io/travis/Arcensoth/pymcutil/master.svg?label=master+build
 [Master Code Coverage]: https://img.shields.io/coveralls/Arcensoth/pymcutil.svg?label=master+coverage
 [Dev Build Status]: https://img.shields.io/travis/Arcensoth/pymcutil/dev.svg?label=dev+build
-[Dev Code Coverage]: https://img.shields.io/coveralls/Arcensoth/pymcutil.svg?branch=dev&label=dev+coverage
+[Dev Code Coverage]: https://img.shields.io/coveralls/Arcensoth/pymcutil/dev.svg?&label=dev+coverage
