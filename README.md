@@ -4,7 +4,7 @@
 [![Dev Build Status]](https://travis-ci.org/Arcensoth/pymcutil)
 [![Dev Code Coverage]](https://coveralls.io/github/Arcensoth/pymcutil?branch=dev)
 
-Minecraft utilities for Python.
+An expressive Minecraft utility library revolving around data manipulation and generation.
 
 ## Requirements
 * [Python](https://www.python.org/) 3.6+

@@ -16,7 +16,7 @@ setup(
     author_email='arcensoth@gmail.com',
     url='https://github.com/Arcensoth/pymcutil',
     license='MIT',
-    description='Minecraft utilities for Python.',
+    description='An expressive Minecraft utility library revolving around data manipulation and generation.',
     long_description=readme,
     packages=find_packages(),
     install_requires=requirements)
