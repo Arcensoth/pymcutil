@@ -1,6 +1,6 @@
 import unittest
 
-from pymcutil.math.rc import RC, rel
+from pymcutil.position.rc import RC, rel
 
 
 class PositionTestCase(unittest.TestCase):

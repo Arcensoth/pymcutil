@@ -1,6 +1,6 @@
 import unittest
 
-from pymcutil.math.vector import Vector
+from pymcutil.position.vector import Vector
 
 
 class VectorTestCase(unittest.TestCase):

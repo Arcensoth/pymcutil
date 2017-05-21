@@ -1,8 +1,7 @@
 import unittest
 
-from pymcutil.math.rc import rel
-
-from pymcutil.math.position import Position, ZERO_POSITION, SELF_POSITION
+from pymcutil.position.position import Position, ZERO_POSITION, SELF_POSITION
+from pymcutil.position.rc import rel
 
 
 class PositionTestCase(unittest.TestCase):

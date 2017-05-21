@@ -1,4 +1,4 @@
-from pymcutil.math.vector import Vector
+from pymcutil.position.vector import Vector
 
 
 class Vector3D(Vector):
