@@ -5,10 +5,10 @@ from pymcutil.math.position import Position, ZERO_POSITION, SELF_POSITION
 
 class PositionTestCase(unittest.TestCase):
     def test_init(self):
-        v = Position(1, 2, 3)
-        self.assertEqual(v.x, 1)
-        self.assertEqual(v.y, 2)
-        self.assertEqual(v.z, 3)
+        p = Position(1, 2, 3)
+        self.assertEqual(p.x, 1)
+        self.assertEqual(p.y, 2)
+        self.assertEqual(p.z, 3)
 
     def test_invert(self):
         self.assertEqual(str(~Position(1, 2, 3)), '~1 ~2 ~3')
