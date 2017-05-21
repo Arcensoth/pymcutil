@@ -1,5 +1,7 @@
 import unittest
 
+from pymcutil.math.rc import rel
+
 from pymcutil.math.position import Position, ZERO_POSITION, SELF_POSITION
 
 
@@ -13,11 +15,23 @@ class PositionTestCase(unittest.TestCase):
     def test_invert(self):
         self.assertEqual(str(~Position(1, 2, 3)), '~1 ~2 ~3')
 
+    def test_abs(self):
+        self.assertEqual(str(abs(~Position(1, 2, 3))), '1 2 3')
+
     def test_zero_position(self):
         self.assertEqual(str(ZERO_POSITION), '0 0 0')
 
     def test_self_position(self):
         self.assertEqual(str(SELF_POSITION), '~ ~ ~')
 
-    def test_abs_plus_rel(self):
-        self.assertEqual(Position(1, 2, 3) + ~Position(4, 5, 6), ~Position(5, 7, 9))
+    def test_rel_mixed_zero_coords(self):
+        self.assertEqual(str(~Position(4, 0, 4)), '~4 ~ ~4')
+
+    def test_rel_decimal_coords(self):
+        self.assertEqual(str(~Position(3.142, 6.674, 2.718)), '~3.142 ~6.674 ~2.718')
+
+    def test_mixed_abs_and_rel_coords(self):
+        self.assertEqual(str(Position(1, rel(2), 3)), '1 ~2 3')
+
+    def test_mixed_abs_and_rel_to_rel_coords(self):
+        self.assertEqual(str(~Position(1, rel(2), 3)), '~1 ~2 ~3')

@@ -12,7 +12,16 @@ class Position(Vector3D):
         super().__init__(x, y, z)
 
     def __invert__(self):
+        return self.relative()
+
+    def __abs__(self):
+        return self.absolute()
+
+    def relative(self):
         return self.__class__(*[RC(c) for c in self.components])
+
+    def absolute(self):
+        return self.__class__(*[float(c) for c in self.components])
 
 
 ZERO_POSITION = Position(0, 0, 0)

@@ -102,3 +102,35 @@ class PositionTestCase(unittest.TestCase):
 
     def test_neg(self):
         self.assertEqual(-RC(1), RC(-1))
+
+    # The resulting type of an operation between an absolute and relative coordinate should match whichever came first.
+
+    def test_rel_add_abs_str(self):
+        self.assertEqual(str(RC(1) + 2.0), '~3.0')
+
+    def test_abs_add_rel_str(self):
+        self.assertEqual(str(1.0 + RC(2)), '3.0')
+
+    def test_rel_sub_abs_str(self):
+        self.assertEqual(str(RC(3) - 2.0), '~1.0')
+
+    def test_abs_sub_rel_str(self):
+        self.assertEqual(str(3.0 - RC(2)), '1.0')
+
+    def test_rel_mul_abs_str(self):
+        self.assertEqual(str(RC(2) * 3.0), '~6.0')
+
+    def test_abs_mul_rel_str(self):
+        self.assertEqual(str(2.0 * RC(3)), '6.0')
+
+    def test_rel_truediv_abs_str(self):
+        self.assertEqual(str(RC(7) / 2), '~3.5')
+
+    def test_abs_truediv_rel_str(self):
+        self.assertEqual(str(7.0 / RC(2)), '3.5')
+
+    def test_rel_floordiv_abs_str(self):
+        self.assertEqual(str(RC(7) // 2), '~3.0')
+
+    def test_abs_floordiv_rel_str(self):
+        self.assertEqual(str(7.0 // RC(2)), '3.0')

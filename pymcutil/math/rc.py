@@ -57,11 +57,15 @@ class RC(float):
     def __ifloordiv__(self, other):
         return self.__floordiv__(other)
 
-    def __radd__(self, other):
-        return self.__add__(other)
+    # Keep `radd` and `rmul` disabled so the builtin float versions are called instead whenever a relative coordinate
+    # appears on the right-hand side of the operation. This causes the resulting type of `add` and `mul` to depend on
+    # whichever comes first.
 
-    def __rmul__(self, other):
-        return self.__mul__(other)
+    # def __radd__(self, other):
+    #     return self.__add__(other)
+    #
+    # def __rmul__(self, other):
+    #     return self.__mul__(other)
 
     def __neg__(self):
         return self.__mul__(-1)
