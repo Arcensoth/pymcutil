@@ -2,7 +2,9 @@ class RC(float):
     """ A float wrapper for dealing with relative coordinates. """
 
     def __repr__(self):
-        return 'RC({})'.format(super().__repr__())
+        return '{name}({params})'.format(
+            name=self.__class__.__name__,
+            params=super().__repr__())
 
     def __str__(self):
         return '~' + (super().__str__() if self else '')
