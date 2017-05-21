@@ -10,9 +10,7 @@ class RC(float):
         return '~' + (super().__str__() if self else '')
 
     def __eq__(self, other):
-        if type(other) is type(self):
-            return super().__eq__(other)
-        return False
+        return (isinstance(other, RC)) and super().__eq__(other)
 
     def __add__(self, other):
         try:
