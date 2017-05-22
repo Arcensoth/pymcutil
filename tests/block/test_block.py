@@ -1,7 +1,7 @@
 import unittest
 
-from pymcutil.block import Block
-from pymcutil.block_state import BlockState
+from pymcutil.block.block import Block
+from pymcutil.block.block_state import BlockState
 
 
 class BlockTestCase(unittest.TestCase):

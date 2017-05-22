@@ -1,6 +1,6 @@
 from collections import Mapping
 
-from pymcutil.block import Block
+from pymcutil.block.block import Block
 from pymcutil.data_tag import DataTag
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 

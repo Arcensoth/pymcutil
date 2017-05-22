@@ -1,7 +1,7 @@
 import abc
 from collections import Mapping
 
-from pymcutil.block_state import BlockState
+from pymcutil.block.block_state import BlockState
 
 
 class Block(abc.ABC):

@@ -4,7 +4,7 @@ from pymcutil.data_tag import DataTag
 class FloatDataTag(DataTag):
     """ A float data tag, also known as TAG_Float. """
 
-    def __init__(self, value=0):
+    def __init__(self, value=0.0):
         self._value: float = None
         self.value = value
 
@@ -17,8 +17,7 @@ class FloatDataTag(DataTag):
 
     @value.setter
     def value(self, value):
-        value = float(value)
-        self._value = value
+        self._value = float(value)
 
     def to_str(self) -> str:
         return f'{self.value}f'

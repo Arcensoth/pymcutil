@@ -4,7 +4,7 @@ from pymcutil.data_tag import DataTag
 class DoubleDataTag(DataTag):
     """ A double data tag, also known as TAG_Double. """
 
-    def __init__(self, value=0):
+    def __init__(self, value=0.0):
         self._value: float = None
         self.value = value
 
@@ -17,8 +17,7 @@ class DoubleDataTag(DataTag):
 
     @value.setter
     def value(self, value):
-        value = float(value)
-        self._value = value
+        self._value = float(value)
 
     def to_str(self) -> str:
         # Doubles are the default data tag for any decimal value, however they do have a suffix.

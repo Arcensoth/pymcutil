@@ -1,7 +1,7 @@
 import unittest
 
-from pymcutil.block_entity import BlockEntity
-from pymcutil.block_state import BlockState
+from pymcutil.block.block_entity import BlockEntity
+from pymcutil.block.block_state import BlockState
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from pymcutil.data_tag.string_data_tag import StringDataTag
 
