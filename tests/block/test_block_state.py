@@ -1,6 +1,6 @@
 import unittest
 
-from pymcutil.block_state import BlockState
+from pymcutil.block.block_state import BlockState
 
 
 class BlockStateTestCase(unittest.TestCase):
