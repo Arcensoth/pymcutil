@@ -1,7 +1,7 @@
 from typing import Dict
 
-from pymcutil.command.selector.selector import Selector
 from pymcutil.position.position import Position
+from pymcutil.selector.selector import Selector
 
 BASE = 'a'
 

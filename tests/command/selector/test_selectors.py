@@ -1,7 +1,7 @@
 import unittest
 
-from pymcutil.command.selector import selectors
 from pymcutil.position.position import Position
+from pymcutil.selector import selectors
 
 
 class SelectorTestCase(unittest.TestCase):
