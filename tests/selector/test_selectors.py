@@ -67,17 +67,17 @@ class SelectorTestCase(unittest.TestCase):
 
     def test_argument_max_scores(self):
         self.assertEqual(
-            str(selectors.entities(max_scores=dict(myobjective=100))),
+            str(selectors.entities(max_scores={'myobjective': 100})),
             '@e[score_myobjective=100]')
 
     def test_argument_min_scores(self):
         self.assertEqual(
-            str(selectors.entities(min_scores=dict(myobjective=1))),
+            str(selectors.entities(min_scores={'myobjective': 1})),
             '@e[score_myobjective_min=1]')
 
     def test_argument_exact_score(self):
         self.assertEqual(
-            str(selectors.entities(exact_scores=dict(myobjective=50))),
+            str(selectors.entities(exact_scores={'myobjective': 50})),
             '@e[score_myobjective=50,score_myobjective_min=50]')
 
     def test_argument_name(self):
