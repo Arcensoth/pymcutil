@@ -21,3 +21,6 @@ def random(
         c: int = None, exact_scores: Dict[str, int] = None) -> RandomSelector:
     """ Functional alias for creating `RandomSelector` instances. """
     return RandomSelector(**locals())
+
+
+RANDOM = RandomSelector()

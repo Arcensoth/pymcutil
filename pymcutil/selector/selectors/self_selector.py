@@ -21,3 +21,6 @@ def self(
         c: int = None, exact_scores: Dict[str, int] = None) -> SelfSelector:
     """ Functional alias for creating `SelfSelector` instances. """
     return SelfSelector(**locals())
+
+
+SELF = SelfSelector()

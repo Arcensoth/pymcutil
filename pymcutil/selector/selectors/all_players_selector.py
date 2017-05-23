@@ -21,3 +21,6 @@ def all_players(
         c: int = None, exact_scores: Dict[str, int] = None) -> AllPlayersSelector:
     """ Functional alias for creating `AllPlayersSelector` instances. """
     return AllPlayersSelector(**locals())
+
+
+ALL_PLAYERS = AllPlayersSelector()

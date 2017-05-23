@@ -21,3 +21,6 @@ def entities(
         c: int = None, exact_scores: Dict[str, int] = None) -> EntitiesSelector:
     """ Functional alias for creating `EntitiesSelector` instances. """
     return EntitiesSelector(**locals())
+
+
+ENTITIES = EntitiesSelector()
