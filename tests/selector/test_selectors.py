@@ -7,27 +7,27 @@ from pymcutil.selector import selectors
 class SelectorTestCase(unittest.TestCase):
     def test_base_player(self):
         self.assertEqual(
-            str(selectors.player()),
+            str(selectors.PLAYER),
             '@p')
 
     def test_base_random(self):
         self.assertEqual(
-            str(selectors.random()),
+            str(selectors.RANDOM),
             '@r')
 
     def test_base_all_players(self):
         self.assertEqual(
-            str(selectors.all_players()),
+            str(selectors.ALL_PLAYERS),
             '@a')
 
     def test_base_entities(self):
         self.assertEqual(
-            str(selectors.entities()),
+            str(selectors.ENTITIES),
             '@e')
 
     def test_base_self(self):
         self.assertEqual(
-            str(selectors.self()),
+            str(selectors.SELF),
             '@s')
 
     def test_argument_position(self):
