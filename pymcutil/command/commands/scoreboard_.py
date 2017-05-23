@@ -1,5 +1,7 @@
 from pymcutil.command.command import Command
 
+CMD = 'scoreboard'
+
 
 class ScoreboardCommand(Command):
     """
@@ -12,7 +14,5 @@ class ScoreboardCommand(Command):
     *This command requires a sub-command to be useful.*
     """
 
-    CMD = 'scoreboard'
-
     def params(self):
-        yield self.CMD
+        yield CMD

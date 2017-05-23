@@ -1,5 +1,7 @@
 from ..scoreboard_ import ScoreboardCommand
 
+CMD = 'players'
+
 
 class ScoreboardPlayersCommand(ScoreboardCommand):
     """
@@ -12,8 +14,6 @@ class ScoreboardPlayersCommand(ScoreboardCommand):
     *This command requires a sub-command to be useful.*
     """
 
-    CMD = 'players'
-
     def params(self):
         yield from super().params()
-        yield self.CMD
+        yield CMD

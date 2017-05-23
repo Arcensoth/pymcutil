@@ -1,6 +1,8 @@
 from pymcutil.command.target import Target
 from ..tag_ import ScoreboardPlayersTagCommand
 
+CMD = 'list'
+
 
 class ScoreboardPlayersTagListCommand(ScoreboardPlayersTagCommand):
     """
@@ -11,13 +13,11 @@ class ScoreboardPlayersTagListCommand(ScoreboardPlayersTagCommand):
     http://minecraft.gamepedia.com/Scoreboard#Tags_commands
     """
 
-    CMD = 'list'
-
     def params(self):
         yield from super().params()
-        yield self.CMD
+        yield CMD
 
 
-def list(player: Target) -> ScoreboardPlayersTagListCommand:
+def list(target: Target) -> ScoreboardPlayersTagListCommand:
     """ Functional alias for creating `ScoreboardPlayersTagListCommand` instances. """
     return ScoreboardPlayersTagListCommand(**locals())

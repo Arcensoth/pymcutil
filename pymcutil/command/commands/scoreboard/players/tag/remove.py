@@ -4,6 +4,8 @@ from pymcutil.command.target import Target
 from pymcutil.data_tag import DataTag
 from ..tag_ import ScoreboardPlayersTagCommand
 
+CMD = 'remove'
+
 
 class ScoreboardPlayersTagRemoveCommand(ScoreboardPlayersTagCommand):
     """
@@ -14,8 +16,6 @@ class ScoreboardPlayersTagRemoveCommand(ScoreboardPlayersTagCommand):
     http://minecraft.gamepedia.com/Scoreboard#Tags_commands
     """
 
-    CMD = 'remove'
-
     def __init__(self, target: Target, tag: str, data_tag: DataTag = None):
         super().__init__(target)
         self.tag: str = tag
@@ -23,7 +23,7 @@ class ScoreboardPlayersTagRemoveCommand(ScoreboardPlayersTagCommand):
 
     def params(self):
         yield from super().params()
-        yield from (self.CMD, self.tag)
+        yield from (CMD, self.tag)
 
         if self.data_tag is not None:
             yield self.data_tag
