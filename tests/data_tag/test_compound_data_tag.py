@@ -31,6 +31,10 @@ class CompoundDataTagTestCase(unittest.TestCase):
         del dt['mykey']
         self.assertEqual(dt.to_str(), '{anotherkey:anothervalue}')
 
+    def test_len(self):
+        dt = CompoundDataTag(mykey='myvalue', anotherkey='anothervalue')
+        self.assertEqual(len(dt), 2)
+
     def test_default(self):
         dt = CompoundDataTag()
         self.assertEqual(dt.to_str(), '{}')

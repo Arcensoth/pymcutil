@@ -172,6 +172,9 @@ class VectorTestCase(unittest.TestCase):
     def test_neg(self):
         self.assertEqual(-Vector(1, 2), Vector(-1, -2))
 
+    def test_iter(self):
+        self.assertEqual([c for c in Vector(1, 2, 3)], [1, 2, 3])
+
     # ------------------------------------------------------------------------------------------------------------------
 
     def test_components(self):
