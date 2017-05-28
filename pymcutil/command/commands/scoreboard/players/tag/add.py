@@ -1,7 +1,6 @@
 from typing import Union, Mapping
 
 from pymcutil.command.target import Target
-from pymcutil.data_tag import DataTag
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from ..tag_ import ScoreboardPlayersTagCommand
 
@@ -27,6 +26,6 @@ class ScoreboardPlayersTagAddCommand(ScoreboardPlayersTagCommand):
         yield from (CMD, self.tag, self.data_tag)
 
 
-def add(target: Target, tag: str, data_tag: DataTag = None) -> ScoreboardPlayersTagAddCommand:
+def add(target: Target, tag: str, data_tag: Mapping = None) -> ScoreboardPlayersTagAddCommand:
     """ Functional alias for creating `ScoreboardPlayersTagAddCommand` instances. """
     return ScoreboardPlayersTagAddCommand(**locals())

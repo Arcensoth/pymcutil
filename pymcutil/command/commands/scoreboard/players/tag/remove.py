@@ -1,7 +1,6 @@
 from typing import Union, Mapping
 
 from pymcutil.command.target import Target
-from pymcutil.data_tag import DataTag
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from ..tag_ import ScoreboardPlayersTagCommand
 
@@ -27,6 +26,6 @@ class ScoreboardPlayersTagRemoveCommand(ScoreboardPlayersTagCommand):
         yield from (CMD, self.tag, self.data_tag)
 
 
-def remove(target: Target, tag: str, data_tag: DataTag = None) -> ScoreboardPlayersTagRemoveCommand:
+def remove(target: Target, tag: str, data_tag: Mapping = None) -> ScoreboardPlayersTagRemoveCommand:
     """ Functional alias for creating `ScoreboardPlayersTagRemoveCommand` instances. """
     return ScoreboardPlayersTagRemoveCommand(**locals())
