@@ -15,7 +15,7 @@ class Command(abc.ABC):
         for p in reversed(list(self.params())):
             value, default = p if isinstance(p, tuple) else (p, None)
             if skip:
-                skip = value is None
+                skip = value is None and default is not None
                 if skip:
                     continue
             final_value = value if value is not None else default

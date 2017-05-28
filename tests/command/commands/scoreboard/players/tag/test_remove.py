@@ -18,3 +18,10 @@ class ScoreboardPlayersTagRemoveCommandTestCase(unittest.TestCase):
             tag='on_ground',
             data_tag=CompoundDataTag({'OnGround': False}))
         self.assertEqual(str(cmd), 'scoreboard players tag @p remove on_ground {OnGround:0b}')
+
+    def test_missing_required_param(self):
+        with self.assertRaises(ValueError):
+            cmd = commands.scoreboard.players.tag.remove(
+                target=selectors.PLAYER,
+                tag=None)
+            str(cmd)

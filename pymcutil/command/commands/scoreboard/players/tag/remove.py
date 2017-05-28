@@ -23,7 +23,9 @@ class ScoreboardPlayersTagRemoveCommand(ScoreboardPlayersTagCommand):
 
     def params(self):
         yield from super().params()
-        yield from (CMD, self.tag, self.data_tag)
+        yield from (
+            CMD, self.tag,
+            (self.data_tag, CompoundDataTag()))
 
 
 def remove(target: Target, tag: str, data_tag: Mapping = None) -> ScoreboardPlayersTagRemoveCommand:

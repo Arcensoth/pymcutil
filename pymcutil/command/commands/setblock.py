@@ -4,6 +4,7 @@ from pymcutil.block.block import Block
 from pymcutil.block.block_state import BlockState
 from pymcutil.command.command import Command
 from pymcutil.command.component.block_command_component import BlockCommandComponent
+from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from pymcutil.position.position import Position
 
 CMD = 'setblock'
@@ -31,7 +32,7 @@ class SetblockCommand(Command):
             CMD, self.position, self.block_cc.block_id,
             (self.block_cc.block_state, BlockState()),
             (self.old_block_handling, 'replace'),
-            self.block_cc.data_tag)
+            (self.block_cc.data_tag, CompoundDataTag()))
 
 
 def setblock(
