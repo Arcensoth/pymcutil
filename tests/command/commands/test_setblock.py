@@ -26,19 +26,17 @@ class SetblockCommandTestCase(unittest.TestCase):
         self.assertEqual(str(cmd), 'setblock 1 2 3 dropper default destroy')
 
     def test_with_data_tag(self):
-        self.assertEqual(
-            str(commands.setblock(
-                position=(1, 2, 3),
-                block_id='dropper',
-                data_tag={'Lock': 'password'})),
-            'setblock 1 2 3 dropper default replace {Lock:password}')
+        cmd = commands.setblock(
+            position=(1, 2, 3),
+            block_id='dropper',
+            data_tag={'Lock': 'password'})
+        self.assertEqual(str(cmd), 'setblock 1 2 3 dropper default replace {Lock:password}')
 
     def test_with_block(self):
-        self.assertEqual(
-            str(commands.setblock(
-                position=(1, 2, 3),
-                block=BlockEntity(
-                    block_id='dropper',
-                    block_state=dict(facing='up'),
-                    data_tag={'Lock': 'password'}))),
-            'setblock 1 2 3 dropper facing=up replace {Lock:password}')
+        cmd = commands.setblock(
+            position=(1, 2, 3),
+            block=BlockEntity(
+                block_id='dropper',
+                block_state=dict(facing='up'),
+                data_tag={'Lock': 'password'}))
+        self.assertEqual(str(cmd), 'setblock 1 2 3 dropper facing=up replace {Lock:password}')
