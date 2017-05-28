@@ -1,6 +1,6 @@
 import unittest
 
-from pymcutil.util import default, defaults, first
+from pymcutil.util import default, defaults, first, require
 
 
 class UtilTestCase(unittest.TestCase):
@@ -29,3 +29,10 @@ class UtilTestCase(unittest.TestCase):
 
     def test_first_none(self):
         self.assertEqual(first(None, None, None), None)
+
+    def test_require(self):
+        self.assertEqual(require(123, 'number'), 123)
+
+    def test_require_error(self):
+        with self.assertRaises(ValueError):
+            require(None, 'number')
