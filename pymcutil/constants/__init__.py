@@ -1,3 +1,5 @@
+from . import block_ids
+
 BYTE_MIN = -128
 BYTE_MAX = 127
 SHORT_MIN = -32_768
