@@ -1,0 +1,2 @@
+class CommandComponent(object):
+    pass

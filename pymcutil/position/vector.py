@@ -1,7 +1,9 @@
-from typing import List
+from typing import List, Iterable
+
+from pymcutil.util.siftable import SiftableSequence
 
 
-class Vector(object):
+class Vector(Iterable, SiftableSequence):
     def __init__(self, *components):
         # Don't cast potential subtypes of float into normal floats!
         self._components = [c if isinstance(c, float) else float(c) for c in components]
@@ -80,6 +82,9 @@ class Vector(object):
 
     def __neg__(self):
         return self.__mul__(-1)
+
+    def __iter__(self):
+        return self.components.__iter__()
 
     def to_str(self) -> str:
         return ' '.join(['{:g}'.format(c) for c in self.components])

@@ -1,7 +1,7 @@
-from typing import Union
+from typing import Union, Mapping
 
 from pymcutil.command.target import Target
-from pymcutil.data_tag import DataTag
+from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from ..tag_ import ScoreboardPlayersTagCommand
 
 CMD = 'add'
@@ -16,19 +16,18 @@ class ScoreboardPlayersTagAddCommand(ScoreboardPlayersTagCommand):
     http://minecraft.gamepedia.com/Scoreboard#Tags_commands
     """
 
-    def __init__(self, target: Target, tag: str, data_tag: DataTag = None):
+    def __init__(self, target: Target, tag: str, data_tag: Mapping = None):
         super().__init__(target)
         self.tag: str = tag
-        self.data_tag: Union[DataTag, None] = data_tag
+        self.data_tag: Union[CompoundDataTag, None] = CompoundDataTag.sift(data_tag, None)
 
     def params(self):
         yield from super().params()
-        yield from (CMD, self.tag)
+        yield from (
+            CMD, self.tag,
+            (self.data_tag, CompoundDataTag()))
 
-        if self.data_tag is not None:
-            yield self.data_tag
 
-
-def add(target: Target, tag: str, data_tag: DataTag = None) -> ScoreboardPlayersTagAddCommand:
+def add(target: Target, tag: str, data_tag: Mapping = None) -> ScoreboardPlayersTagAddCommand:
     """ Functional alias for creating `ScoreboardPlayersTagAddCommand` instances. """
     return ScoreboardPlayersTagAddCommand(**locals())

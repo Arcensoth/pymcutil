@@ -7,16 +7,21 @@ from pymcutil.selector import selectors
 
 class ScoreboardPlayersTagAddCommandTestCase(unittest.TestCase):
     def test_without_data_tag(self):
-        self.assertEqual(
-            str(commands.scoreboard.players.tag.add(
-                target=selectors.PLAYER,
-                tag='some_tag')),
-            'scoreboard players tag @p add some_tag')
+        cmd = commands.scoreboard.players.tag.add(
+            target=selectors.PLAYER,
+            tag='some_tag')
+        self.assertEqual(str(cmd), 'scoreboard players tag @p add some_tag')
 
     def test_with_data_tag(self):
-        self.assertEqual(
-            str(commands.scoreboard.players.tag.add(
+        cmd = commands.scoreboard.players.tag.add(
+            target=selectors.PLAYER,
+            tag='on_ground',
+            data_tag=CompoundDataTag({'OnGround': True}))
+        self.assertEqual(str(cmd), 'scoreboard players tag @p add on_ground {OnGround:1b}')
+
+    def test_missing_required_param(self):
+        with self.assertRaises(ValueError):
+            cmd = commands.scoreboard.players.tag.add(
                 target=selectors.PLAYER,
-                tag='on_ground',
-                data_tag=CompoundDataTag({'OnGround': True}))),
-            'scoreboard players tag @p add on_ground {OnGround:1b}')
+                tag=None)
+            str(cmd)

@@ -9,4 +9,4 @@ class Block(abc.ABC):
 
     def __init__(self, block_id: str, block_state: Mapping = None):
         self.block_id: str = block_id
-        self.block_state: BlockState = BlockState(**(block_state or {}))
+        self.block_state: BlockState = BlockState.sift(block_state, {})

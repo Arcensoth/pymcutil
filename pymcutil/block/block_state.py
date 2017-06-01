@@ -1,8 +1,10 @@
 import re
 from collections import MutableMapping
 
+from pymcutil.util.siftable import SiftableMapping
 
-class BlockState(MutableMapping):
+
+class BlockState(MutableMapping, SiftableMapping):
     """ Represents a Minecraft block state. """
 
     PATTERN = re.compile('^[a-z0-9_]+$')
