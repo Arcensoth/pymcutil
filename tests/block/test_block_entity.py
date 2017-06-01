@@ -27,5 +27,29 @@ class BlockTestCase(unittest.TestCase):
         self.assertEqual(be.data_tag['lock'], StringDataTag('password'))
 
     def test_data_tag_from_braces(self):
-        be = BlockEntity('chest', data_tag={'lock': 'password'})
-        self.assertEqual(be.data_tag['lock'], StringDataTag('password'))
+        be = BlockEntity('chest', data_tag={'Lock': 'password'})
+        self.assertEqual(be.data_tag['Lock'], StringDataTag('password'))
+
+    def test_tag(self):
+        be1 = BlockEntity('chest')
+        be2 = be1.tag({'Lock': 'password'})
+        self.assertEqual(be1.block_id, 'chest')
+        self.assertEqual(be1.data_tag, CompoundDataTag())
+        self.assertEqual(be2.block_id, 'chest')
+        self.assertEqual(be2.data_tag, CompoundDataTag({'Lock': 'password'}))
+
+    def test_tag_overwrite(self):
+        be1 = BlockEntity('chest', data_tag=CompoundDataTag({'Lock': 'password'}))
+        be2 = be1.tag({'Lock': 'guessme'})
+        self.assertEqual(be1.block_id, 'chest')
+        self.assertEqual(be1.data_tag, CompoundDataTag({'Lock': 'password'}))
+        self.assertEqual(be2.block_id, 'chest')
+        self.assertEqual(be2.data_tag, CompoundDataTag({'Lock': 'guessme'}))
+
+    def test_tag_more(self):
+        be1 = BlockEntity('chest', data_tag=CompoundDataTag({'Lock': 'password'}))
+        be2 = be1.tag({'CustomName': 'Materials'})
+        self.assertEqual(be1.block_id, 'chest')
+        self.assertEqual(be1.data_tag, CompoundDataTag({'Lock': 'password'}))
+        self.assertEqual(be2.block_id, 'chest')
+        self.assertEqual(be2.data_tag, CompoundDataTag({'Lock': 'password', 'CustomName': 'Materials'}))
