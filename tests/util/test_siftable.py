@@ -4,7 +4,7 @@ from pymcutil.block.block_state import BlockState
 from pymcutil.position.position import Position
 
 
-class VectorTestCase(unittest.TestCase):
+class SiftableTestCase(unittest.TestCase):
     def test_sift_position_from_tuple(self):
         self.assertEqual(Position.sift((1, 2, 3)), Position(1, 2, 3))
 

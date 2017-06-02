@@ -6,7 +6,7 @@ from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from pymcutil.data_tag.string_data_tag import StringDataTag
 
 
-class BlockTestCase(unittest.TestCase):
+class BlockEntityTestCase(unittest.TestCase):
     def test_with_id(self):
         be = BlockEntity('chest')
         self.assertEqual(be.block_id, 'chest')
