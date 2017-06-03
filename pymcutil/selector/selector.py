@@ -9,16 +9,14 @@ class Selector(abc.ABC):
 
     # TODO Figure out how to reuse parameter definitions for functional aliases.
     def __init__(
-            self, position: Position = None, volume: Position = None, entity_type: str = None,
-            l: int = None, lm: int = None, m: int = None, team: str = None,
-            max_scores: Dict[str, int] = None, min_scores: Dict[str, int] = None,
-            name: str = None, tag: str = None, r: int = None, rm: int = None,
-            rx: float = None, rxm: float = None, ry: float = None, rym: float = None,
-            c: int = None, exact_scores: Dict[str, int] = None):
+            self, position: Position = None, volume: Position = None, type: str = None, l: int = None, lm: int = None,
+            m: int = None, team: str = None, max_scores: Dict[str, int] = None, min_scores: Dict[str, int] = None,
+            exact_scores: Dict[str, int] = None, name: str = None, tag: str = None, r: int = None, rm: int = None,
+            rx: float = None, rxm: float = None, ry: float = None, rym: float = None, c: int = None):
 
         self.position = position
         self.volume = volume
-        self.entity_type = entity_type
+        self.type = type
         self.l = l
         self.lm = lm
         self.m = m
@@ -53,7 +51,7 @@ class Selector(abc.ABC):
         yield 'dx', int(self.volume.x) if self.volume else None
         yield 'dy', int(self.volume.y) if self.volume else None
         yield 'dz', int(self.volume.z) if self.volume else None
-        yield 'type', self.entity_type
+        yield 'type', self.type
         yield 'l', self.l
         yield 'lm', self.lm
         yield 'm', self.m
