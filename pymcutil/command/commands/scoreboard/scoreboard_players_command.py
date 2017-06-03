@@ -1,4 +1,4 @@
-from ..scoreboard_ import ScoreboardCommand
+from ..scoreboard_command import ScoreboardCommand
 
 CMD = 'players'
 

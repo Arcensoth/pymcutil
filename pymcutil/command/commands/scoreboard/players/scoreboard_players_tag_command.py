@@ -1,5 +1,5 @@
 from pymcutil.command.target import Target
-from ..players_ import ScoreboardPlayersCommand
+from ..scoreboard_players_command import ScoreboardPlayersCommand
 
 CMD = 'tag'
 

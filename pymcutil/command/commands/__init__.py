@@ -1,2 +1,2 @@
 from . import scoreboard
-from .setblock import setblock
+from .setblock_command import setblock
