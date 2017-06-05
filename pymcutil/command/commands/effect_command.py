@@ -30,7 +30,7 @@ class EffectCommand(Command):
 
 
 def effect(
-        self, target: Target, effect: str, seconds: int = None, amplifier: int = None, hide_particles: bool = None) \
+        target: Target, effect: str, seconds: int = None, amplifier: int = None, hide_particles: bool = None) \
         -> EffectCommand:
     """ Functional alias for creating `EffectCommand` instances. """
     return EffectCommand(**locals())
