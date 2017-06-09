@@ -1,8 +1,8 @@
 # pymcutil
 [![Master Build Status Badge]](https://travis-ci.org/Arcensoth/pymcutil)
-[![Master Code Coverage Badge]](https://coveralls.io/github/Arcensoth/pymcutil)
+[![Master Code Coverage Badge]](https://codecov.io/gh/Arcensoth/pymcutil/branch/master)
 [![Dev Build Status Badge]](https://travis-ci.org/Arcensoth/pymcutil)
-[![Dev Code Coverage Badge]](https://coveralls.io/github/Arcensoth/pymcutil?branch=dev)
+[![Dev Code Coverage Badge]](https://codecov.io/gh/Arcensoth/pymcutil/branch/dev)
 [![Discord Badge]](https://discord.gg/Z4pVDNp)
 
 An expressive Minecraft utility library revolving around data manipulation and generation.
