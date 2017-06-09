@@ -21,3 +21,6 @@ after_success:
   # upload to codecov
   - pip install codecov
   - codecov
+  # upload to codacy
+  - pip install codacy-coverage
+  - python-codacy-coverage -r coverage.xml
