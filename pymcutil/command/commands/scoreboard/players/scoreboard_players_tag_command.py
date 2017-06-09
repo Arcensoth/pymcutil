@@ -11,7 +11,7 @@ class ScoreboardPlayersTagCommand(ScoreboardPlayersCommand):
         scoreboard players tag <player> <add|remove|list> ...
 
     http://minecraft.gamepedia.com/Scoreboard#Tags_commands
-    
+
     *This command requires a sub-command to be useful.*
     """
 

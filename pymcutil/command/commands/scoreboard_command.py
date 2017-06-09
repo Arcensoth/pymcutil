@@ -10,7 +10,7 @@ class ScoreboardCommand(Command):
         scoreboard <objectives|players|teams> ...
 
     http://minecraft.gamepedia.com/Scoreboard#Command_reference
-    
+
     *This command requires a sub-command to be useful.*
     """
 
