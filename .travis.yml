@@ -18,9 +18,6 @@ after_success:
   # rerun tests with coverage
   - pip install coverage
   - coverage run --source pymcutil -m unittest discover tests
-  # upload to coveralls
-  - pip install python-coveralls
-  - coveralls
   # upload to codecov
   - pip install codecov
   - codecov
