@@ -13,9 +13,14 @@ install:
 script:
   - python -m unittest discover tests
 
-# if the tests succeed, then run coverage
+# if the tests succeed, then run full coverage reports
 after_success:
+  # rerun tests with coverage
   - pip install coverage
   - coverage run --source pymcutil -m unittest discover tests
+  # upload to coveralls
   - pip install python-coveralls
   - coveralls
+  # upload to codecov
+  - pip install codecov
+  - codecov
