@@ -1,5 +1,5 @@
 from pymcutil.command.target import Target
-from ..players_ import ScoreboardPlayersCommand
+from ..scoreboard_players_command import ScoreboardPlayersCommand
 
 CMD = 'tag'
 
@@ -11,7 +11,7 @@ class ScoreboardPlayersTagCommand(ScoreboardPlayersCommand):
         scoreboard players tag <player> <add|remove|list> ...
 
     http://minecraft.gamepedia.com/Scoreboard#Tags_commands
-    
+
     *This command requires a sub-command to be useful.*
     """
 

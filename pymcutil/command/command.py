@@ -8,6 +8,12 @@ class Command(abc.ABC):
     def __str__(self):
         return self.to_str()
 
+    @staticmethod
+    def convert_param(param) -> str:
+        if isinstance(param, bool):
+            return 'true' if param else 'false'
+        return str(param)
+
     def to_str(self) -> str:
         # TODO Clean up this mess.
         params = []
@@ -22,7 +28,7 @@ class Command(abc.ABC):
             if final_value is None:
                 raise ValueError('Command parameter required but not given')
             params.append(final_value)
-        return ' '.join(str(p) for p in reversed(params))
+        return ' '.join(self.convert_param(p) for p in reversed(params))
 
     @abc.abstractmethod
     def params(self) -> Iterator[Any]:

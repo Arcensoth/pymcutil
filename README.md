@@ -1,15 +1,15 @@
 # pymcutil
-[![Master Build Status]](https://travis-ci.org/Arcensoth/pymcutil)
-[![Master Code Coverage]](https://coveralls.io/github/Arcensoth/pymcutil)
-[![Dev Build Status]](https://travis-ci.org/Arcensoth/pymcutil)
-[![Dev Code Coverage]](https://coveralls.io/github/Arcensoth/pymcutil?branch=dev)
+[![Build Status Badge]](https://travis-ci.org/Arcensoth/pymcutil)
+[![Code Quality Badge]](https://www.codacy.com/app/Arcensoth/pymcutil)
+[![Code Coverage Badge]](https://codecov.io/gh/Arcensoth/pymcutil)
+[![Discord Badge]](https://discord.gg/Z4pVDNp)
 
 An expressive Minecraft utility library revolving around data manipulation and generation.
 
 ## Requirements
 * [Python](https://www.python.org/) 3.6+
 
-[Master Build Status]: https://img.shields.io/travis/Arcensoth/pymcutil/master.svg?label=master+build
-[Master Code Coverage]: https://img.shields.io/coveralls/Arcensoth/pymcutil.svg?label=master+coverage
-[Dev Build Status]: https://img.shields.io/travis/Arcensoth/pymcutil/dev.svg?label=dev+build
-[Dev Code Coverage]: https://img.shields.io/coveralls/Arcensoth/pymcutil/dev.svg?&label=dev+coverage
+[Build Status Badge]: https://img.shields.io/travis/Arcensoth/pymcutil.svg?label=build
+[Code Quality Badge]: https://img.shields.io/codacy/grade/b038637bf42e45558d2e3418aa10318b.svg?label=quality
+[Code Coverage Badge]: https://img.shields.io/codecov/c/github/Arcensoth/pymcutil.svg?label=coverage
+[Discord Badge]: https://img.shields.io/discord/320371516174761994.svg?label=discord&colorB=7289DA

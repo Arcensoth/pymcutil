@@ -9,7 +9,7 @@ from pymcutil.data_tag.list_data_tag import ListDataTag
 from pymcutil.data_tag.string_data_tag import StringDataTag
 
 
-class ByteDataTagTestCase(unittest.TestCase):
+class HelperTestCase(unittest.TestCase):
     def test_convert_data_tag(self):
         dt1 = data_taggify('hello')
         dt2 = data_taggify(dt1)

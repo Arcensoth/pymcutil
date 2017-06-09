@@ -1,4 +1,4 @@
-from ..scoreboard_ import ScoreboardCommand
+from ..scoreboard_command import ScoreboardCommand
 
 CMD = 'players'
 
@@ -10,7 +10,7 @@ class ScoreboardPlayersCommand(ScoreboardCommand):
         scoreboard players <list|set|add|remove|reset|enable|test|operation|tag> ...
 
     http://minecraft.gamepedia.com/Scoreboard#Players_commands
-    
+
     *This command requires a sub-command to be useful.*
     """
 

@@ -2,16 +2,16 @@ from typing import Union, Mapping
 
 from pymcutil.command.target import Target
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
-from ..tag_ import ScoreboardPlayersTagCommand
+from ..scoreboard_players_tag_command import ScoreboardPlayersTagCommand
 
-CMD = 'remove'
+CMD = 'add'
 
 
-class ScoreboardPlayersTagRemoveCommand(ScoreboardPlayersTagCommand):
+class ScoreboardPlayersTagAddCommand(ScoreboardPlayersTagCommand):
     """
     An objective model of one of Minecraft's `scoreboard` subcommands:
 
-        scoreboard players tag <player> remove <tagName> [dataTag]
+        scoreboard players tag <player> add <tagName> [dataTag]
 
     http://minecraft.gamepedia.com/Scoreboard#Tags_commands
     """
@@ -28,6 +28,6 @@ class ScoreboardPlayersTagRemoveCommand(ScoreboardPlayersTagCommand):
             (self.data_tag, CompoundDataTag()))
 
 
-def remove(target: Target, tag: str, data_tag: Mapping = None) -> ScoreboardPlayersTagRemoveCommand:
-    """ Functional alias for creating `ScoreboardPlayersTagRemoveCommand` instances. """
-    return ScoreboardPlayersTagRemoveCommand(**locals())
+def add(target: Target, tag: str, data_tag: Mapping = None) -> ScoreboardPlayersTagAddCommand:
+    """ Functional alias for creating `ScoreboardPlayersTagAddCommand` instances. """
+    return ScoreboardPlayersTagAddCommand(**locals())

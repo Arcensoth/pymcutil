@@ -1,2 +1,3 @@
 from . import scoreboard
-from .setblock import setblock
+from .effect_command import effect
+from .setblock_command import setblock

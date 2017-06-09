@@ -3,7 +3,7 @@ import unittest
 from pymcutil.position.rc import RC, rel
 
 
-class PositionTestCase(unittest.TestCase):
+class RCTestCase(unittest.TestCase):
     def test_rel(self):
         self.assertEqual(rel(1), RC(1))
 

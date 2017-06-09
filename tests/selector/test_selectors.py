@@ -42,7 +42,7 @@ class SelectorTestCase(unittest.TestCase):
 
     def test_argument_entity_type(self):
         self.assertEqual(
-            str(selectors.entities(entity_type='area_effect_cloud')),
+            str(selectors.entities(type='area_effect_cloud')),
             '@e[type=area_effect_cloud]')
 
     def test_argument_l(self):
@@ -130,7 +130,7 @@ class SelectorTestCase(unittest.TestCase):
             str(selectors.entities(
                 position=Position(1, 2, 3),
                 volume=Position(4, 9, 16),
-                entity_type='area_effect_cloud',
+                type='area_effect_cloud',
                 l=10,
                 lm=5,
                 m=3,
