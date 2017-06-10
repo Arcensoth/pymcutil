@@ -37,4 +37,5 @@ def effect(
 
 
 def effect_clear(target: Target) -> EffectCommand:
+    """ Convenience method for alternate effect command syntax. """
     return EffectCommand(target=target, effect='clear')
