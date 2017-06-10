@@ -7,5 +7,5 @@ from pymcutil.selector import selectors
 class ScoreboardPlayersTagAddCommandTestCase(unittest.TestCase):
     def test(self):
         cmd = commands.scoreboard.players.tag.list(
-            target=selectors.PLAYER)
-        self.assertEqual(str(cmd), 'scoreboard players tag @p list')
+            target=selectors.SELF)
+        self.assertEqual(str(cmd), 'scoreboard players tag @s list')
