@@ -28,3 +28,13 @@ class ExecuteCommandTestCase(unittest.TestCase):
                 message='hi'),
             position=~Position(1, 2, 3))
         self.assertEqual(str(cmd), 'execute @s ~1 ~2 ~3 say hi')
+
+    def test_detect(self):
+        cmd = commands.execute_detect(
+            target=selectors.SELF,
+            command=commands.say(
+                message='hi'),
+            block_id='minecraft:dropper',
+            block_state=dict(facing='up'),
+            detect_position=~Position(0, -1, 0))
+        self.assertEqual(str(cmd), 'execute @s ~ ~ ~ detect ~ ~-1 ~ minecraft:dropper facing=up say hi')
