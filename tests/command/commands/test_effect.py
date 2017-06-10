@@ -41,3 +41,8 @@ class EffectCommandTestCase(unittest.TestCase):
             amplifier=5,
             hide_particles=True)
         self.assertEqual(str(cmd), 'effect @p strength 60 5 true')
+
+    def test_clear(self):
+        cmd = commands.effect_clear(
+            target=selectors.PLAYER)
+        self.assertEqual(str(cmd), 'effect @p clear')
