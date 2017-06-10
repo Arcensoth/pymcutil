@@ -25,4 +25,4 @@ class Position(Vector3D):
 
 
 ZERO_POSITION = Position(0, 0, 0)
-SELF_POSITION = ~ZERO_POSITION
+ZERO_OFFSET = ~ZERO_POSITION
