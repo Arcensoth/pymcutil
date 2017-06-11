@@ -1,6 +1,6 @@
 import unittest
 
-from pymcutil.position.position import Position, ZERO_POSITION, SELF_POSITION
+from pymcutil.position.position import Position, ZERO_POSITION, ZERO_OFFSET
 from pymcutil.position.rc import rel
 
 
@@ -21,7 +21,7 @@ class PositionTestCase(unittest.TestCase):
         self.assertEqual(str(ZERO_POSITION), '0 0 0')
 
     def test_self_position(self):
-        self.assertEqual(str(SELF_POSITION), '~ ~ ~')
+        self.assertEqual(str(ZERO_OFFSET), '~ ~ ~')
 
     def test_rel_mixed_zero_coords(self):
         self.assertEqual(str(~Position(4, 0, 4)), '~4 ~ ~4')

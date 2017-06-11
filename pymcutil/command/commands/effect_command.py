@@ -34,3 +34,8 @@ def effect(
         -> EffectCommand:
     """ Functional alias for creating `EffectCommand` instances. """
     return EffectCommand(**locals())
+
+
+def effect_clear(target: Target) -> EffectCommand:
+    """ Convenience method for alternate effect command syntax. """
+    return EffectCommand(target=target, effect='clear')
