@@ -4,8 +4,12 @@ from typing import Iterable
 from pymcutil.constants.resources import *
 
 
+def get_resource_trail(path_components: Iterable) -> str:
+    return '/'.join(path_components)
+
+
 def get_resource_name(namespace: str, path_components: Iterable) -> str:
-    return '{}:{}'.format(namespace, '/'.join(path_components))
+    return '{}:{}'.format(namespace, get_resource_trail(path_components))
 
 
 def get_resource_path(
