@@ -16,10 +16,10 @@ class RotationTestCase(unittest.TestCase):
     def test_abs(self):
         self.assertEqual(str(abs(~Rotation(45, 90))), '45 90')
 
-    def test_zero_position(self):
+    def test_zero_rotation(self):
         self.assertEqual(str(ZERO_ROTATION), '0 0')
 
-    def test_self_position(self):
+    def test_zero_turn(self):
         self.assertEqual(str(ZERO_TURN), '~ ~')
 
     def test_rel_mixed_zero_coords(self):
