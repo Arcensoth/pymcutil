@@ -1,4 +1,5 @@
 from . import block_ids
+from . import resources
 
 BYTE_MIN = -128
 BYTE_MAX = 127
