@@ -15,7 +15,7 @@ def get_resource_name(namespace: str, path_components: Iterable) -> str:
 def get_resource_path(
         root: str, resource_dir: str, namespace: str, resource_subdir: str, resource_ext: str,
         path_components: Iterable) -> str:
-    return '{}.{}'.format(os.sep.join((root, resource_dir, namespace, resource_subdir, *path_components)), resource_ext)
+    return '{}.{}'.format(os.path.join(root, resource_dir, namespace, resource_subdir, *path_components), resource_ext)
 
 
 def get_advancement_path(root: str, namespace: str, path_components: Iterable) -> str:
