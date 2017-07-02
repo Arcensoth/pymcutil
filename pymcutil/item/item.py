@@ -1,10 +1,9 @@
-import abc
 from collections import Mapping
 
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 
 
-class Item(abc.ABC):
+class Item(object):
     """ Represents a Minecraft item. """
 
     def __init__(self, item_id: str, data_tag: Mapping = None):

@@ -1,10 +1,9 @@
-import abc
 from collections import Mapping
 
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 
 
-class Entity(abc.ABC):
+class Entity(object):
     """ Represents a Minecraft entity. """
 
     def __init__(self, entity_id: str, data_tag: Mapping = None):
