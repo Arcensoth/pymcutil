@@ -1,18 +1,15 @@
 import os
 from queue import Queue
-from typing import Dict, Iterable, Mapping, Tuple, Type
+from typing import Dict, Iterable, Mapping, Type
 
 from pymcutil import util
-from pymcutil.resource.abc.resource import Resource
 from pymcutil.resource.resource_generator.abc.resource_generator import ResourceGenerator
-from pymcutil.resource.resource_location.abc.resource_location import ResourceLocation
+from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager, ResourcePair
 from pymcutil.resource.resource_manager.errors import ResourceReferenceNotMappedError
 from pymcutil.resource.resource_reference.abc.resource_reference import ResourceReference
 
-ResourcePair = Tuple[Resource, ResourceLocation]
 
-
-class ResourceManager(object):
+class QueuedResourceManager(ResourceManager):
     """ Manages relationships between programmatically defined game resources for dynamic datapack generation. """
 
     def __init__(self, mapping: Mapping, output_root: str, label: str = ''):
@@ -43,7 +40,7 @@ class ResourceManager(object):
         last_resource_line = last_resource_lines[-1:][0]
         self.log.debug('  └ {}'.format(last_resource_line))
 
-    def map(self, kind: Type[ResourceReference], generator: ResourceGenerator):
+    def set_generator(self, kind: Type[ResourceReference], generator: ResourceGenerator):
         self.mapping[kind] = generator
 
     def get_generator(self, reference: ResourceReference) -> ResourceGenerator:
@@ -57,11 +54,11 @@ class ResourceManager(object):
         location = generator.location(*reference.params)
         reference.locate(location)
 
-    def generate(self, *seed_references: ResourceReference) -> Iterable[ResourcePair]:
+    def generate(self, *references: ResourceReference) -> Iterable[ResourcePair]:
         q: Queue = Queue()
 
         # Locate seed refs before anything else.
-        for ref in seed_references:
+        for ref in references:
             self.locate(ref)
             q.put(ref)
 
