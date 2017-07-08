@@ -10,8 +10,6 @@ from pymcutil.resource.resource_reference.abc.resource_reference import Resource
 
 
 class QueuedResourceManager(ResourceManager):
-    """ Manages relationships between programmatically defined game resources for dynamic datapack generation. """
-
     def __init__(self, mapping: Mapping, output_root: str, label: str = ''):
         self.mapping: Dict[Type[ResourceReference], ResourceGenerator] = dict(mapping)
         self.output_root: str = output_root
