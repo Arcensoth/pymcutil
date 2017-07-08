@@ -16,7 +16,7 @@ class ResourceManager(object):
     """ Manages relationships between programmatically defined game resources for dynamic datapack generation. """
 
     def __init__(self, mapping: Mapping, output_root: str, label: str = ''):
-        self.mapping: Dict[type, ResourceGenerator] = dict(mapping)
+        self.mapping: Dict[Type[ResourceReference], ResourceGenerator] = dict(mapping)
         self.output_root: str = output_root
 
         self.label: str = label
