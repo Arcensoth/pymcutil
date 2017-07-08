@@ -19,27 +19,6 @@ class QueuedResourceManager(ResourceManager):
         self.label: str = label
         self.log = util.get_logger(self, self.label)
 
-    def log_resources(self, resource_pairs: Iterable[ResourcePair]):
-        resource_pairs = tuple(resource_pairs)
-
-        self.log.info(' Generated {} resources:'.format(len(resource_pairs)))
-
-        for resource, resource_location in resource_pairs[:-1]:
-            self.log.info(' ├ {} ({})'.format(resource_location.name, resource_location.path))
-            resource_lines = tuple(resource.resource_lines)
-            for line in resource_lines[:-1]:
-                self.log.debug('│ ├ {}'.format(line))
-            last_line = resource_lines[-1:][0]
-            self.log.debug('│ └ {}'.format(last_line))
-
-        last_resource, last_resource_location = resource_pairs[-1:][0]
-        self.log.info(' └ {} ({})'.format(last_resource_location.name, last_resource_location.path))
-        last_resource_lines = tuple(last_resource.resource_lines)
-        for line in last_resource_lines[:-1]:
-            self.log.debug('  ├ {}'.format(line))
-        last_resource_line = last_resource_lines[-1:][0]
-        self.log.debug('  └ {}'.format(last_resource_line))
-
     def set_generator(self, kind: Type[ResourceReference], generator: ResourceGenerator):
         self.mapping[kind] = generator
 
