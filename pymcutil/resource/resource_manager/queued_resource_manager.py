@@ -2,7 +2,6 @@ import os
 from queue import Queue
 from typing import Dict, Iterable, Mapping, Type
 
-from pymcutil import util
 from pymcutil.resource.resource_generator.abc.resource_generator import ResourceGenerator
 from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager, ResourcePair
 from pymcutil.resource.resource_manager.errors import ResourceReferenceNotMappedError
@@ -10,12 +9,9 @@ from pymcutil.resource.resource_reference.abc.resource_reference import Resource
 
 
 class QueuedResourceManager(ResourceManager):
-    def __init__(self, mapping: Mapping, output_root: str, label: str = ''):
+    def __init__(self, mapping: Mapping, output_root: str):
         self.mapping: Dict[Type[ResourceReference], ResourceGenerator] = dict(mapping)
         self.output_root: str = output_root
-
-        self.label: str = label
-        self.log = util.get_logger(self, self.label)
 
     def set_generator(self, kind: Type[ResourceReference], generator: ResourceGenerator):
         self.mapping[kind] = generator
