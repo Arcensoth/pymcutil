@@ -15,6 +15,11 @@ class RecursiveResourceManager(ResourceManager):
         self.mapping: Dict[Type[ResourceReference], ResourceGenerator] = dict(mapping)
         self.output_root: str = output_root
 
+    def _locate(self, reference: ResourceReference):
+        generator = self.get_generator(reference)
+        location = generator.location(*reference.params)
+        reference.locate(location)
+
     def set_generator(self, kind: Type[ResourceReference], generator: ResourceGenerator):
         self.mapping[kind] = generator
 
@@ -24,11 +29,6 @@ class RecursiveResourceManager(ResourceManager):
         except KeyError:
             raise ResourceReferenceNotMappedError(reference)
 
-    def locate(self, reference: ResourceReference):
-        generator = self.get_generator(reference)
-        location = generator.location(*reference.params)
-        reference.locate(location)
-
     def rgenerate(self, reference: ResourceReference) -> Iterable[ResourcePair]:
         generator = self.get_generator(reference)
         resource = generator.generate(*reference.params)
@@ -37,7 +37,7 @@ class RecursiveResourceManager(ResourceManager):
 
         # Locate dependencies before generating output.
         for subref in resource.resource_references:
-            self.locate(subref)
+            self._locate(subref)
 
         yield resource, reference.location
 
@@ -53,5 +53,5 @@ class RecursiveResourceManager(ResourceManager):
 
     def generate(self, *references: ResourceReference) -> Iterable[ResourcePair]:
         for ref in references:
-            self.locate(ref)
+            self._locate(ref)
             yield from self.rgenerate(ref)
