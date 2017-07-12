@@ -1,4 +1,4 @@
-from typing import Mapping, Iterable, Union
+from typing import Iterable, Mapping, Union
 
 from pymcutil.block.block import Block
 from pymcutil.block.block_state import BlockState
@@ -35,8 +35,4 @@ class SetblockCommand(Command):
             (self.block_cc.data_tag, CompoundDataTag()))
 
 
-def setblock(
-        position: Iterable, block: Block = None, block_id: str = None, block_state: Mapping = None,
-        old_block_handling: str = None, data_tag: Mapping = None) -> SetblockCommand:
-    """ Functional alias for creating `SetblockCommand` instances. """
-    return SetblockCommand(**locals())
+setblock = SetblockCommand

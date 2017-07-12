@@ -23,6 +23,4 @@ class FunctionCommand(Command):
         yield from (CMD, self.function, (self.mode, 'if'), (self.mode_target, selectors.SELF))
 
 
-def function(function: str, mode: str = None, mode_target: Target = None) -> FunctionCommand:
-    """ Functional alias for creating `FunctionCommand` instances. """
-    return FunctionCommand(**locals())
+function = FunctionCommand

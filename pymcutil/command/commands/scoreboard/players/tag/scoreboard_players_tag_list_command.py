@@ -1,4 +1,3 @@
-from pymcutil.command.target import Target
 from ..scoreboard_players_tag_command import ScoreboardPlayersTagCommand
 
 CMD = 'list'
@@ -18,6 +17,4 @@ class ScoreboardPlayersTagListCommand(ScoreboardPlayersTagCommand):
         yield CMD
 
 
-def list(target: Target) -> ScoreboardPlayersTagListCommand:
-    """ Functional alias for creating `ScoreboardPlayersTagListCommand` instances. """
-    return ScoreboardPlayersTagListCommand(**locals())
+list = ScoreboardPlayersTagListCommand

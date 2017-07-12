@@ -1,4 +1,5 @@
 from . import effect, scoreboard
+from .detect_command import detect
 from .effect12_command import effect12, effect12_clear
 from .execute_command import execute, execute_detect
 from .function_command import function
