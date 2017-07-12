@@ -7,7 +7,6 @@ from pymcutil.position.position import Position
 class Selector(abc.ABC):
     """ An abstract base class representing a Minecraft target selector. """
 
-    # TODO Figure out how to reuse parameter definitions for functional aliases.
     def __init__(
             self, position: Position = None, volume: Position = None, type: str = None, l: int = None, lm: int = None,
             m: int = None, team: str = None, max_scores: Dict[str, int] = None, min_scores: Dict[str, int] = None,
