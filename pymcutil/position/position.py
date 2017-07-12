@@ -26,3 +26,5 @@ class Position(Vector3D):
 
 ZERO_POSITION = Position(0, 0, 0)
 ZERO_OFFSET = ~ZERO_POSITION
+BELOW_OFFSET = ~Position(0, -1, 0)
+ABOVE_OFFSET = ~Position(0, 1, 0)

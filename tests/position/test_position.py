@@ -20,7 +20,7 @@ class PositionTestCase(unittest.TestCase):
     def test_zero_position(self):
         self.assertEqual(str(ZERO_POSITION), '0 0 0')
 
-    def test_self_position(self):
+    def test_zero_offset(self):
         self.assertEqual(str(ZERO_OFFSET), '~ ~ ~')
 
     def test_rel_mixed_zero_coords(self):
