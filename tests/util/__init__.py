@@ -1,38 +1,42 @@
 import unittest
 
-from pymcutil.util import default, defaults, first, require
+from pymcutil import util
 
 
 class UtilTestCase(unittest.TestCase):
     def test_default_with_value(self):
-        self.assertEqual(default('hello'), 'hello')
+        self.assertEqual(util.default('hello'), 'hello')
 
     def test_default_with_value_and_default(self):
-        self.assertEqual(default('hello', 'world'), 'hello')
+        self.assertEqual(util.default('hello', 'world'), 'hello')
 
     def test_default_with_value_none_and_default(self):
-        self.assertEqual(default(None, 'world'), 'world')
+        self.assertEqual(util.default(None, 'world'), 'world')
 
     def test_default_with_value_none_and_default_none(self):
-        self.assertEqual(default(None, None), None)
+        self.assertEqual(util.default(None, None), None)
 
     def test_defaults(self):
         self.assertEqual(
-            defaults(dict(a='alpha', b='beta'), b='bravo', c='charlie'),
+            util.defaults(dict(a='alpha', b='beta'), b='bravo', c='charlie'),
             dict(a='alpha', b='beta', c='charlie'))
 
     def test_first_immediate(self):
-        self.assertEqual(first('a', 'b', 'c'), 'a')
+        self.assertEqual(util.first('a', 'b', 'c'), 'a')
 
     def test_first_eventually(self):
-        self.assertEqual(first(None, None, None, 'a', 'b', 'c'), 'a')
+        self.assertEqual(util.first(None, None, None, 'a', 'b', 'c'), 'a')
 
     def test_first_none(self):
-        self.assertEqual(first(None, None, None), None)
+        self.assertEqual(util.first(None, None, None), None)
 
     def test_require(self):
-        self.assertEqual(require(123, 'number'), 123)
+        self.assertEqual(util.require(123, 'number'), 123)
 
     def test_require_error(self):
         with self.assertRaises(ValueError):
-            require(None, 'number')
+            util.require(None, 'number')
+
+    def test_get_logger(self):
+        log = util.get_logger([], 'mylist')
+        self.assertEqual(log.name, 'list:mylist')
