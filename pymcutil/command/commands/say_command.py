@@ -19,6 +19,4 @@ class SayCommand(Command):
         yield from (CMD, self.message)
 
 
-def say(message: str) -> SayCommand:
-    """ Functional alias for creating `SayCommand` instances. """
-    return SayCommand(**locals())
+say = SayCommand

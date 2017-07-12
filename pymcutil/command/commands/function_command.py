@@ -37,6 +37,4 @@ class FunctionCommand(Command, ResourceReferent):
         yield from ()
 
 
-def function(function: Union[str, FunctionReference], mode: str = None, mode_target: Target = None) -> FunctionCommand:
-    """ Functional alias for creating `FunctionCommand` instances. """
-    return FunctionCommand(**locals())
+function = FunctionCommand

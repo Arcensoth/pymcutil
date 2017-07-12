@@ -1,4 +1,4 @@
-from typing import Union, Mapping
+from typing import Mapping, Union
 
 from pymcutil.command.target import Target
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
@@ -28,6 +28,4 @@ class ScoreboardPlayersTagAddCommand(ScoreboardPlayersTagCommand):
             (self.data_tag, CompoundDataTag()))
 
 
-def add(target: Target, tag: str, data_tag: Mapping = None) -> ScoreboardPlayersTagAddCommand:
-    """ Functional alias for creating `ScoreboardPlayersTagAddCommand` instances. """
-    return ScoreboardPlayersTagAddCommand(**locals())
+add = ScoreboardPlayersTagAddCommand

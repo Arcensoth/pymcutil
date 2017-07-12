@@ -29,3 +29,6 @@ class DetectCommand(Command):
 
     def params(self):
         yield from (CMD, self.position, self.block_cc.block_id, self.block_cc.block_state, self.command)
+
+
+detect = DetectCommand
