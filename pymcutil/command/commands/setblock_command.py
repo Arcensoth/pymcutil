@@ -10,7 +10,7 @@ CMD = 'setblock'
 
 class SetblockCommand(Command):
     """
-    An objective model of Minecraft `setblock` command:
+    An objective model of Minecraft's `setblock` command:
 
         setblock <x> <y> <z> <block> [oldBlockHandling]
 
