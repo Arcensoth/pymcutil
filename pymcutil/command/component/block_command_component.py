@@ -17,6 +17,12 @@ class BlockCommandComponent(CommandComponent):
         self.data_tag: Union[CompoundDataTag, None] = CompoundDataTag.sift(
             first(data_tag, block.data_tag if isinstance(block, BlockEntity) else None), None)
 
+    def __str__(self):
+        return ''.join((
+            self.block_id,
+            '[{}]'.format(self.block_state) if self.block_state is not None else '',
+            str(self.data_tag) if self.data_tag is not None else ''))
+
     @property
     def block_state_safe(self) -> BlockState:
         return first(self.block_state, BlockState())

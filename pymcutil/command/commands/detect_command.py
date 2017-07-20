@@ -12,7 +12,7 @@ class DetectCommand(Command):
     """
     An objective model of the imaginary `detect` command:
 
-        detect <x> <y> <z> <block> <state> <command ...>
+        detect <x> <y> <z> <block> <command ...>
 
     http://minecraft.gamepedia.com/Commands#execute
 
@@ -28,7 +28,7 @@ class DetectCommand(Command):
         self.command = command
 
     def params(self):
-        yield from (CMD, self.position, self.block_cc.block_id, self.block_cc.block_state, self.command)
+        yield from (CMD, self.position, self.block_cc, self.command)
 
 
 detect = DetectCommand

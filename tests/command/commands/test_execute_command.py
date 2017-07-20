@@ -37,4 +37,4 @@ class ExecuteCommandTestCase(unittest.TestCase):
             block_id='minecraft:dropper',
             block_state=dict(facing='up'),
             detect_position=~Position(0, -1, 0))
-        self.assertEqual(str(cmd), 'execute @s ~ ~ ~ detect ~ ~-1 ~ minecraft:dropper facing=up say hi')
+        self.assertEqual(str(cmd), 'execute @s ~ ~ ~ detect ~ ~-1 ~ minecraft:dropper[facing=up] say hi')

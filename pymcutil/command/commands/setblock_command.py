@@ -1,10 +1,8 @@
 from typing import Iterable, Mapping, Union
 
 from pymcutil.block.block import Block
-from pymcutil.block.block_state import BlockState
 from pymcutil.command.command import Command
 from pymcutil.command.component.block_command_component import BlockCommandComponent
-from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from pymcutil.position.position import Position
 
 CMD = 'setblock'
@@ -14,7 +12,7 @@ class SetblockCommand(Command):
     """
     An objective model of Minecraft's `setblock` command:
 
-        setblock <x> <y> <z> <block> [state] [oldBlockHandling] [dataTag]
+        setblock <x> <y> <z> <block> [oldBlockHandling]
 
     http://minecraft.gamepedia.com/Commands#setblock
     """
@@ -29,10 +27,8 @@ class SetblockCommand(Command):
 
     def params(self):
         yield from (
-            CMD, self.position, self.block_cc.block_id,
-            (self.block_cc.block_state, BlockState()),
-            (self.old_block_handling, 'replace'),
-            (self.block_cc.data_tag, CompoundDataTag()))
+            CMD, self.position, self.block_cc,
+            (self.old_block_handling, 'replace'))
 
 
 setblock = SetblockCommand

@@ -54,3 +54,27 @@ class BlockCommandComponentTestCase(unittest.TestCase):
         self.assertEqual(cc.block_id, 'dispenser')
         self.assertEqual(cc.block_state, BlockState(facing='down'))
         self.assertEqual(cc.data_tag, CompoundDataTag({'Lock': 'abc123'}))
+
+    def test_str_block_id(self):
+        cc = BlockCommandComponent(
+            block_id='dropper')
+        self.assertEqual(str(cc), 'dropper')
+
+    def test_str_block_id_and_state(self):
+        cc = BlockCommandComponent(
+            block_id='dropper',
+            block_state=dict(facing='up'))
+        self.assertEqual(str(cc), 'dropper[facing=up]')
+
+    def test_str_block_id_and_data_tag(self):
+        cc = BlockCommandComponent(
+            block_id='dropper',
+            data_tag={'Lock': 'password'})
+        self.assertEqual(str(cc), 'dropper{Lock:password}')
+
+    def test_str_block_id_and_state_and_data_tag(self):
+        cc = BlockCommandComponent(
+            block_id='dropper',
+            block_state=dict(facing='up'),
+            data_tag={'Lock': 'password'})
+        self.assertEqual(str(cc), 'dropper[facing=up]{Lock:password}')
