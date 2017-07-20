@@ -32,7 +32,7 @@ class HelloProcedure(Procedure):
             yield commands.function(HelloFunctionReference(subject, count - 1))
 
 
-class EntityTestCase(unittest.TestCase):
+class HelloE2ETestCase(unittest.TestCase):
     def test(self):
         mapping = {
             HelloFunctionReference: HelloProcedure(namespace='pymcutil', root='hello')
@@ -43,6 +43,9 @@ class EntityTestCase(unittest.TestCase):
         rm: ResourceManager = StackedResourceManager(
             mapping=mapping, output_root=tempdir.name)
 
-        # TODO test stuff
+        resources = list(rm.generate(
+            HelloFunctionReference('world', 3)))
+
+        print('\n'.join(str(r) for r in resources))
 
         tempdir.cleanup()

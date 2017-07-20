@@ -1,5 +1,4 @@
 import os
-from queue import Queue
 from typing import Dict, Iterable, Mapping, Type
 
 from pymcutil.resource.resource_generator.abc.resource_generator import ResourceGenerator
@@ -56,4 +55,4 @@ class StackedResourceManager(ResourceManager):
             resource_path = os.path.join(self.output_root, reference.location.path)
             os.makedirs(os.path.dirname(resource_path), exist_ok=True)
             with open(resource_path, 'w') as resource_file:
-                resource_file.write('\n'.join([str(line) for line in resource.resource_lines] + ['']))
+                resource_file.write(resource.text)

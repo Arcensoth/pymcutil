@@ -36,7 +36,7 @@ class LettersProcedure(Procedure):
             yield commands.function(LettersFunctionReference(latter))
 
 
-class EntityTestCase(unittest.TestCase):
+class LettersE2ETestCase(unittest.TestCase):
     def test(self):
         mapping = {
             LettersFunctionReference: LettersProcedure(namespace='pymcutil', root='letters')
@@ -47,6 +47,9 @@ class EntityTestCase(unittest.TestCase):
         rm: ResourceManager = StackedResourceManager(
             mapping=mapping, output_root=tempdir.name)
 
-        # TODO test stuff
+        resources = list(rm.generate(
+            LettersFunctionReference('ABCDEFGH')))
+
+        print('\n'.join(str(r) for r in resources))
 
         tempdir.cleanup()

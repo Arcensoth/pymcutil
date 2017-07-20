@@ -21,6 +21,6 @@ class Function(Resource):
         yield from (command for command in self.commands if isinstance(command, ResourceReferent))
 
     @property
-    def resource_lines(self) -> Iterable:
-        # Yield commands to be printed one per line.
-        yield from self.commands
+    def text(self) -> str:
+        # Return commands, one per line, followed by one final blank line.
+        return '\n'.join((*(str(command) for command in self.commands), ''))
