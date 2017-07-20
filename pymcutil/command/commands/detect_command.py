@@ -12,7 +12,7 @@ class DetectCommand(Command):
     """
     An objective model of the imaginary `detect` command:
 
-        detect <x> <y> <z> <block> <state> <command ...>
+        detect <x> <y> <z> <block> <command ...>
 
     http://minecraft.gamepedia.com/Commands#execute
 
