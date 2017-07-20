@@ -1,9 +1,11 @@
 from collections import Mapping
 
+from pymcutil.util.siftable import Siftable
+
 from pymcutil.block.block_state import BlockState
 
 
-class Block(object):
+class Block(Siftable):
     """ Represents a Minecraft block. """
 
     def __init__(self, block_id: str, block_state: Mapping = None):
@@ -14,6 +16,11 @@ class Block(object):
         return ''.join((
             self.block_id,
             '[{}]'.format(self.block_state) if self.block_state else ''))
+
+    @classmethod
+    def _siftobj(cls, obj):
+        if isinstance(obj, str):
+            return Block(block_id=obj)  # TODO parse state and nbt
 
     def state(self, *args, **params):
         new_block_state = dict(self.block_state)  # copy

@@ -10,7 +10,7 @@ class DetectCommandTestCase(unittest.TestCase):
     def test_block_with_id(self):
         cmd = commands.detect(
             position=ZERO_OFFSET,
-            block=Block(block_id='dropper'),
+            block='dropper',
             command=commands.say(message='hello'))
         self.assertEqual(str(cmd), 'detect ~ ~ ~ dropper say hello')
 

@@ -10,7 +10,7 @@ class SetblockCommandTestCase(unittest.TestCase):
     def test_block_with_id(self):
         cmd = commands.setblock(
             position=ZERO_OFFSET,
-            block=Block(block_id='dropper'))
+            block='dropper')
         self.assertEqual(str(cmd), 'setblock ~ ~ ~ dropper')
 
     def test_block_with_id_and_state(self):
@@ -33,6 +33,6 @@ class SetblockCommandTestCase(unittest.TestCase):
     def test_old_block_handling(self):
         cmd = commands.setblock(
             position=ZERO_OFFSET,
-            block=Block(block_id='dropper'),
+            block='dropper',
             old_block_handling='destroy')
         self.assertEqual(str(cmd), 'setblock ~ ~ ~ dropper destroy')

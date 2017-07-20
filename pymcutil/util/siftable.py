@@ -22,7 +22,7 @@ class Siftable(abc.ABC):
     @classmethod
     @abc.abstractmethod
     def _siftobj(cls, obj):
-        """ Return an instance of `cls` constructed from the generic object `obj`. """
+        """ Return an instance of `cls` constructed from the non-`cls`, non-null generic object `obj`. """
 
 
 class SiftableSequence(Siftable):
