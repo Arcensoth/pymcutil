@@ -11,6 +11,11 @@ class BlockEntity(Block):
         super().__init__(block_id=block_id, block_state=block_state)
         self.data_tag: CompoundDataTag = CompoundDataTag.sift(data_tag, {})
 
+    def __str__(self):
+        return ''.join(
+            (super().__str__(),
+             str(self.data_tag) if self.data_tag else ''))
+
     def tag(self, *args, **params):
         new_data_tag = dict(self.data_tag)  # copy
         new_data_tag.update(*args, **params)
