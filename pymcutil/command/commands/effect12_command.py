@@ -6,13 +6,11 @@ CMD = 'effect'
 
 class Effect12Command(Command):
     """
-    An objective model of Minecraft's `effect` command:
+    An objective model of Minecraft 1.12's `effect` command:
 
         effect <player> <effect> [seconds] [amplifier] [hideParticles]
 
     http://minecraft.gamepedia.com/Commands#effect
-
-    *This command is deprecated and will be replaced by `effect <give|take> ...` once 1.13 is released.*
     """
 
     def __init__(
