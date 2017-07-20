@@ -1,34 +1,28 @@
-from typing import Iterable, Mapping
+from typing import Iterable
 
 from pymcutil.block.block import Block
 from pymcutil.command.command import Command
-from pymcutil.command.component.block_command_component import BlockCommandComponent
-from pymcutil.position.position import Position, ZERO_OFFSET
+from pymcutil.position.position import Position
 
 CMD = 'detect'
 
 
 class DetectCommand(Command):
     """
-    An objective model of the imaginary `detect` command:
+    An objective model of Minecraft's `detect` command:
 
-        detect <x> <y> <z> <block> <command ...>
+        detect <x y z> <block> <command>
 
-    http://minecraft.gamepedia.com/Commands#execute
-
-    *This is an imaginary command that is currently only utilized in an alternate form of the execute command.*
+    http://minecraft.gamepedia.com/Commands#detect
     """
 
-    def __init__(
-            self, command: Command, block: Block = None, block_id: str = None, block_state: Mapping = None,
-            position: Iterable = ZERO_OFFSET):
+    def __init__(self, position: Iterable, block: Block, command: Command):
         self.position: Position = Position.sift(position)
-        self.block_cc: BlockCommandComponent = BlockCommandComponent(
-            block=block, block_id=block_id, block_state=block_state)
-        self.command = command
+        self.block: Block = block
+        self.command: Command = command
 
     def params(self):
-        yield from (CMD, self.position, self.block_cc, self.command)
+        yield from (CMD, self.position, self.block, self.command)
 
 
 detect = DetectCommand

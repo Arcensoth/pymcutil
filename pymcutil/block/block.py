@@ -10,6 +10,11 @@ class Block(object):
         self.block_id: str = block_id
         self.block_state: BlockState = BlockState.sift(block_state, {})
 
+    def __str__(self):
+        return ''.join((
+            self.block_id,
+            '[{}]'.format(self.block_state) if self.block_state else ''))
+
     def state(self, *args, **params):
         new_block_state = dict(self.block_state)  # copy
         new_block_state.update(*args, **params)
