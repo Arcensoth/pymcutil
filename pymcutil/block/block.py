@@ -1,12 +1,14 @@
 from collections import Mapping
-
-from pymcutil.util.siftable import Siftable
+from typing import Union
 
 from pymcutil.block.block_state import BlockState
+from pymcutil.util.siftable import Siftable
 
 
 class Block(Siftable):
     """ Represents a Minecraft block. """
+
+    Generic = Union['Block', str]
 
     def __init__(self, block_id: str, block_state: Mapping = None):
         self.block_id: str = block_id

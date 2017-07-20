@@ -1,5 +1,5 @@
 import abc
-from typing import Dict, Any, Iterator, Tuple
+from typing import Any, Dict, Iterator, Tuple
 
 from pymcutil.position.position import Position
 
@@ -8,13 +8,14 @@ class Selector(abc.ABC):
     """ An abstract base class representing a Minecraft target selector. """
 
     def __init__(
-            self, position: Position = None, volume: Position = None, type: str = None, l: int = None, lm: int = None,
-            m: int = None, team: str = None, max_scores: Dict[str, int] = None, min_scores: Dict[str, int] = None,
-            exact_scores: Dict[str, int] = None, name: str = None, tag: str = None, r: int = None, rm: int = None,
-            rx: float = None, rxm: float = None, ry: float = None, rym: float = None, c: int = None):
+            self, position: Position.Generic = None, volume: Position.Generic = None, type: str = None, l: int = None,
+            lm: int = None, m: int = None, team: str = None, max_scores: Dict[str, int] = None,
+            min_scores: Dict[str, int] = None, exact_scores: Dict[str, int] = None, name: str = None, tag: str = None,
+            r: int = None, rm: int = None, rx: float = None, rxm: float = None, ry: float = None, rym: float = None,
+            c: int = None):
 
-        self.position = position
-        self.volume = volume
+        self.position = Position.sift(position, None)
+        self.volume = Position.sift(volume, None)
         self.type = type
         self.l = l
         self.lm = lm

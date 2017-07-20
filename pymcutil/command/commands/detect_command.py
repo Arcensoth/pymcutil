@@ -1,7 +1,4 @@
-from typing import Iterable
-
 from pymcutil.block.block import Block
-from pymcutil.block.blockable import Blockable
 from pymcutil.command.command import Command
 from pymcutil.position.position import Position
 
@@ -17,7 +14,7 @@ class DetectCommand(Command):
     http://minecraft.gamepedia.com/Commands#detect
     """
 
-    def __init__(self, position: Iterable, block: Blockable, command: Command):
+    def __init__(self, position: Position.Generic, block: Block.Generic, command: Command):
         self.position: Position = Position.sift(position)
         self.block: Block = Block.sift(block)
         self.command: Command = command

@@ -1,5 +1,3 @@
-from typing import Iterable
-
 from pymcutil.command.command import Command
 from pymcutil.position.position import Position
 
@@ -15,7 +13,7 @@ class OffsetCommand(Command):
     http://minecraft.gamepedia.com/Commands#offset
     """
 
-    def __init__(self, position: Iterable, command: Command):
+    def __init__(self, position: Position.Generic, command: Command):
         self.position: Position = Position.sift(position)
         self.command: Command = command
 
