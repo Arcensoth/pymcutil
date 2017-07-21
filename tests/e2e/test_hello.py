@@ -21,7 +21,7 @@ class HelloFunctionReference(FunctionReference):
 
 class HelloProcedure(Procedure):
     def keys(self, subject: str, count: int) -> Iterable:
-        yield from (subject, str(count))
+        yield from (subject, count)
 
     def run(self, subject: str, count: int) -> Iterable[Command]:
         # Say hello <count> times.

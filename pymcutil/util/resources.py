@@ -5,7 +5,7 @@ from pymcutil.constants.resources import *
 
 
 def get_resource_trail(*components) -> str:
-    return '/'.join(c for c in components if c is not None)
+    return '/'.join(str(c) for c in components if c is not None)
 
 
 def get_resource_name(namespace: str, components: Iterable) -> str:
