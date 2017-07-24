@@ -1,4 +1,4 @@
-from collections import MutableMapping
+from collections import Mapping, MutableMapping
 
 from pymcutil.data_tag import DataTag
 from pymcutil.data_tag.helper import data_taggify
@@ -8,6 +8,8 @@ from pymcutil.util.siftable import SiftableMapping
 
 class CompoundDataTag(DataTag, MutableMapping, SiftableMapping):
     """ A compound data tag, also known as TAG_Compound. """
+
+    Generic = Mapping
 
     def __init__(self, *args, **kwargs):
         self._value = {}
