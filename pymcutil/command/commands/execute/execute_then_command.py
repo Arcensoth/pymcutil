@@ -14,7 +14,7 @@ class ExecuteThenCommand(ExecuteCommand):
     """
 
     def __init__(self, command: Command):
-        self.command: ExecuteCommand = command
+        self.command: Command = command
 
     def params(self):
         yield from super().params()
