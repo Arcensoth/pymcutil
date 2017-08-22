@@ -17,7 +17,7 @@ class ExecuteUnlessBlockCommand(ExecuteUnlessCommand, ExecuteConditionalBlockMix
         yield from super().params()
         yield from (
             CMD, self.position, self.block,
-            (self.subcommand, None))
+            (self.subcommand.substr(), None))
 
 
 block = ExecuteUnlessBlockCommand

@@ -17,7 +17,7 @@ class ExecuteUnlessEntityCommand(ExecuteUnlessCommand, ExecuteConditionalEntityM
         yield from super().params()
         yield from (
             CMD, self.target,
-            (self.subcommand, None))
+            (self.subcommand.substr(), None))
 
 
 entity = ExecuteUnlessEntityCommand

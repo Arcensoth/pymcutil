@@ -17,7 +17,7 @@ class ExecuteIfEntityCommand(ExecuteIfCommand, ExecuteConditionalEntityMixin):
         yield from super().params()
         yield from (
             CMD, self.target,
-            (self.subcommand, None))
+            (self.subcommand.substr(), None))
 
 
 entity = ExecuteIfEntityCommand

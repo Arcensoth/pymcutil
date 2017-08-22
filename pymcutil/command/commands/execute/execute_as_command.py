@@ -23,7 +23,7 @@ class ExecuteAsCommand(ExecuteCommand):
         yield from super().params()
         yield from (
             CMD, self.target,
-            (self.subcommand, None))
+            (self.subcommand.substr(), None))
 
 
 as_ = ExecuteAsCommand  # work around keyword conflict

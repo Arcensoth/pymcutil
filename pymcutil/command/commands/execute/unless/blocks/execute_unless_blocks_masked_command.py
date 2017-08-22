@@ -16,7 +16,7 @@ class ExecuteUnlessBlocksMaskedCommand(ExecuteUnlessBlocksCommand):
         yield from super().params()
         yield from (
             CMD,
-            (self.subcommand, None))
+            (self.subcommand.substr(), None))
 
 
 masked = ExecuteUnlessBlocksMaskedCommand

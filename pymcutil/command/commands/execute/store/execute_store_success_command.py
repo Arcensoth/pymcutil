@@ -16,7 +16,7 @@ class ExecuteStoreSuccessCommand(ExecuteStoreCommand):
         yield from super().params()
         yield from (
             CMD, self.target, self.objective,
-            (self.subcommand, None))
+            (self.subcommand.substr(), None))
 
 
 success = ExecuteStoreSuccessCommand

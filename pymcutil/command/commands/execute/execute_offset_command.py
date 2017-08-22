@@ -23,7 +23,7 @@ class ExecuteOffsetCommand(ExecuteCommand):
         yield from super().params()
         yield from (
             CMD, self.position,
-            (self.subcommand, None))
+            (self.subcommand.substr(), None))
 
 
 offset = ExecuteOffsetCommand

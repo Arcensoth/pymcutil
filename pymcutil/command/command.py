@@ -30,6 +30,11 @@ class Command(abc.ABC):
             params.append(final_value)
         return ' '.join(self.convert_param(p) for p in reversed(params))
 
+    def substr(self) -> str:
+        """ A little hack to support non-prefixed subcommands, such as `execute`. """
+        # TODO There's got to be something cleaner.
+        return self.to_str().split(maxsplit=1)[1]
+
     @abc.abstractmethod
     def params(self) -> Iterator[Any]:
         """ Yield command parameters as pairs of (value, default). """

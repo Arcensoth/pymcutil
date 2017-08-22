@@ -17,7 +17,7 @@ class ExecuteIfBlockCommand(ExecuteIfCommand, ExecuteConditionalBlockMixin):
         yield from super().params()
         yield from (
             CMD, self.position, self.block,
-            (self.subcommand, None))
+            (self.subcommand.substr(), None))
 
 
 block = ExecuteIfBlockCommand

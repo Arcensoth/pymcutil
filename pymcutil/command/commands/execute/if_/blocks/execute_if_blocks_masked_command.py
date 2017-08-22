@@ -16,7 +16,7 @@ class ExecuteIfBlocksMaskedCommand(ExecuteIfBlocksCommand):
         yield from super().params()
         yield from (
             CMD,
-            (self.subcommand, None))
+            (self.subcommand.substr(), None))
 
 
 masked = ExecuteIfBlocksMaskedCommand
