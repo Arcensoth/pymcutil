@@ -1,9 +1,7 @@
 import abc
 
-from pymcutil.resource.resource_referent.abc.resource_referent import ResourceReferent
 
-
-class Resource(ResourceReferent):
+class Resource(object):
     """ Generic game resource representation, used to define common access methods. """
 
     @property

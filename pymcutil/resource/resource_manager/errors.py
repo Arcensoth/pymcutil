@@ -2,5 +2,5 @@ class ResourceManagerError(Exception):
     pass
 
 
-class ResourceReferenceNotMappedError(ResourceManagerError):
+class ReferenceNotRegisteredError(ResourceManagerError):
     pass
