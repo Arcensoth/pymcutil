@@ -3,9 +3,8 @@ from typing import Iterable
 from pymcutil.command import commands
 from pymcutil.command.command import Command
 from pymcutil.resource.resource_generator.abc.procedure import Procedure
-from pymcutil.resource.resource_manager.standard_resource_manager import ResourceManager
-from tests.e2e.string_split import functions
-from tests.e2e.string_split.functions import StringSplitFunctionReference
+from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager
+from . import functions
 
 
 def split_in_two(s):
@@ -15,13 +14,14 @@ def split_in_two(s):
 
 
 class StringSplitProcedure(Procedure):
-    def commands(self, manager: ResourceManager, reference: StringSplitFunctionReference) -> Iterable[Command]:
-        letters, = reference.params
-        yield commands.say(message=letters)
-        if len(letters) > 1:
-            former, latter = split_in_two(letters)
-            yield commands.function(function=manager.refer(functions.string_split(former)))
-            yield commands.function(function=manager.refer(functions.string_split(latter)))
+    def commands(
+            self, manager: ResourceManager, reference: functions.StringSplitFunctionReference) -> Iterable[Command]:
+        message, indent = reference.params
+        yield commands.say(message='. . ' * indent + message)
+        if len(message) > 1:
+            former, latter = split_in_two(message)
+            yield commands.function(function=manager.name(functions.string_split(former, indent + 1)))
+            yield commands.function(function=manager.name(functions.string_split(latter, indent + 1)))
 
 
 string_split = StringSplitProcedure

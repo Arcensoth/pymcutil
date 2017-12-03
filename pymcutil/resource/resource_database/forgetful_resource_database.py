@@ -1,9 +1,13 @@
+import logging
 import os
-from typing import Dict
+from typing import Dict, Iterable, Union
 
 from pymcutil.resource.abc.resource import Resource
+from pymcutil.resource.located_resource.located_resource import LocatedResource
 from pymcutil.resource.resource_database.abc.resource_database import ResourceDatabase
-from pymcutil.resource.resource_location.abc.resource_location import ResourceLocation, ResourceName
+from pymcutil.resource.resource_location.abc.resource_location import ResourceLocation
+
+log = logging.getLogger(__name__)
 
 
 class ForgetfulResourceDatabase(ResourceDatabase):
@@ -17,17 +21,23 @@ class ForgetfulResourceDatabase(ResourceDatabase):
 
     def __init__(self, data_path: str):
         self.data_path: str = data_path
-        self.data: Dict[ResourceName, Resource] = {}
+        self.data: Dict[ResourceLocation, LocatedResource] = {}
 
-    def get(self, location: ResourceLocation):
-        return self.data.get(location.name, None)
+    def get(self, location: ResourceLocation) -> Union[LocatedResource, None]:
+        result = self.data.get(location, None)
+        log.debug('GET {} from {}'.format(type(result.resource).__name__ if result else None, location))
+        return result
 
-    def put(self, location: ResourceLocation, resource: Resource):
-        self.data[location.name] = resource
+    def put(self, location: ResourceLocation, resource: Resource) -> LocatedResource:
+        log.debug('PUT {} at {}'.format(type(resource).__name__, location))
 
         resource_path = os.path.join(self.data_path, location.path)
         os.makedirs(os.path.dirname(resource_path), exist_ok=True)
         with open(resource_path, 'w') as resource_file:
             resource_file.write(resource.text)
 
+        self.data[location] = LocatedResource(location, resource)
         return self.get(location)
+
+    def all(self) -> Iterable[LocatedResource]:
+        yield from self.data.values()

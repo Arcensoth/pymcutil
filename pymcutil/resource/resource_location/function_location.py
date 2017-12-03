@@ -1,4 +1,4 @@
-from pymcutil.resource.resource_location.standard_function_location import StandardResourceLocation
+from pymcutil.resource.resource_location.standard_resource_location import StandardResourceLocation
 
 
 class FunctionLocation(StandardResourceLocation):

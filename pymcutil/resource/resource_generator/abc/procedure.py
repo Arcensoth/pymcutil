@@ -5,13 +5,13 @@ from pymcutil.command.command import Command
 from pymcutil.resource.function import Function
 from pymcutil.resource.resource_generator.abc.function_generator import FunctionGenerator
 from pymcutil.resource.resource_location.function_location import FunctionLocation
+from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager
 from pymcutil.resource.resource_reference.function_reference import FunctionReference
-from pymcutil.resource.resource_manager.standard_resource_manager import ResourceManager
 from pymcutil.util.resources import get_resource_trail
 
 
 class Procedure(FunctionGenerator):
-    def __init__(self, namespace: str, root: str = ''):
+    def __init__(self, namespace: str, root: str = None):
         self.namespace: str = namespace
         self.root: str = root
 

@@ -1,67 +1,70 @@
-from typing import Dict, Iterable, Set, Tuple, Type, Union
-
-from pymcutil.resource.resource_database.abc.resource_database import ResourceDatabase
-from pymcutil.resource.resource_generator.abc.resource_generator import ResourceGenerator
-from pymcutil.resource.resource_location.abc.resource_location import ResourceName
-from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager, ResourcePair
-from pymcutil.resource.resource_manager.errors import ReferenceNotRegisteredError
-from pymcutil.resource.resource_reference.abc.resource_reference import ResourceReference
-
-RegistryType = Iterable[Union[
-    Tuple[Type[ResourceReference], ResourceGenerator],
-    Tuple[Type[ResourceReference], ResourceGenerator, ResourceDatabase]
-]]
+from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager
+from pymcutil.resource.resource_manager.errors import ReferenceNotRegisteredError, ResourceDidNotGenerateError
 
 
 class StandardResourceManager(ResourceManager):
-    def __init__(self, database: ResourceDatabase, registry: RegistryType):
-        self.database: ResourceDatabase = database
+    def __init__(self, database, registry):
+        self._database = database
 
-        self.generator_map: Dict[Type[ResourceReference], ResourceGenerator] = {}
-        self.database_map: Dict[Type[ResourceReference], ResourceDatabase] = {}
+        self._generator_map = {}
+        self._database_map = {}
 
-        self._generating: Set[ResourceReference] = set()
+        self._generating = set()
 
         for item in registry:
             self.register(*item)
 
-    def _get_generator(self, reference: ResourceReference) -> ResourceGenerator:
+    def _get_generator(self, reference):
         try:
-            return self.generator_map[type(reference)]
+            return self._generator_map[type(reference)]
         except KeyError as e:
             raise ReferenceNotRegisteredError(reference) from e
 
-    def _get_database(self, reference: ResourceReference) -> ResourceDatabase:
-        return self.database_map.get(type(reference), self.database)
+    def _get_database(self, reference):
+        return self._database_map.get(type(reference), self._database)
 
-    def register(self, kind: Type[ResourceReference], generator: ResourceGenerator, database: ResourceDatabase = None):
-        self.generator_map[kind] = generator
-        self.database_map[kind] = database or self.database
+    def register(self, kind, generator, database=None):
+        self._generator_map[kind] = generator
+        self._database_map[kind] = database or self._database
 
-    def get(self, reference: ResourceReference) -> ResourcePair:
+    def get(self, reference):
         generator = self._get_generator(reference)
         database = self._get_database(reference)
-        location = generator.location(reference)
+        location = generator.location(self, reference)
         resource = database.get(location)
-        return resource, location
+        return resource
 
-    def refer(self, reference: ResourceReference) -> ResourceName:
-        resource, location = self.get(reference)
+    def generate(self, reference):
+        self.locate(reference)
+        resource = self.get(reference)
+        if not resource:
+            raise ResourceDidNotGenerateError(reference)
+        return resource
 
-        if not (resource or (reference in self._generating)):
+    def locate(self, reference):
+        located_resource = self.get(reference)
+
+        if located_resource:
+            location = located_resource.location
+
+        else:
             generator = self._get_generator(reference)
-            database = self._get_database(reference)
+            location = generator.location(self, reference)
 
-            self._generating.add(reference)
+            # Avoid deadlocks due to circular references.
+            if reference not in self._generating:
+                self._generating.add(reference)
 
-            new_resource = generator.generate(reference)
-            database.put(location, new_resource)
+                database = self._get_database(reference)
+                resource = generator.generate(self, reference)
+                database.put(location, resource)
 
-            self._generating.remove(reference)
+                self._generating.remove(reference)
 
-        return location.name
+        return location
 
-    def generate(self, *references: ResourceReference) -> Iterable[ResourcePair]:
-        for reference in references:
-            self.refer(reference)
-            yield self.get(reference)
+    def name(self, reference):
+        return self.locate(reference).name
+
+    def path(self, reference):
+        return self.locate(reference).path

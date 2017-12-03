@@ -4,3 +4,7 @@ class ResourceManagerError(Exception):
 
 class ReferenceNotRegisteredError(ResourceManagerError):
     pass
+
+
+class ResourceDidNotGenerateError(ResourceManagerError):
+    pass

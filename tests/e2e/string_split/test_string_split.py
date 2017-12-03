@@ -1,16 +1,26 @@
+import logging
 import tempfile
 import unittest
 
+import pymcutil.logging
+from pymcutil.resource.resource_database.abc.resource_database import ResourceDatabase
 from pymcutil.resource.resource_database.forgetful_resource_database import ForgetfulResourceDatabase
-from pymcutil.resource.resource_manager.standard_resource_manager import StandardResourceManager, ResourceManager
-from tests.e2e.string_split import functions, procedures
+from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager
+from pymcutil.resource.resource_manager.standard_resource_manager import StandardResourceManager
+from . import functions, procedures
+
+log = logging.getLogger(__name__)
 
 
 class StringSplitE2ETestCase(unittest.TestCase):
+    def setUp(self):
+        pymcutil.logging.install('DEBUG')
+
     def test(self):
         tempdir = tempfile.TemporaryDirectory()
+        log.info('Using temporary directory: {}'.format(tempdir.name))
 
-        database = ForgetfulResourceDatabase(tempdir.name)
+        database: ResourceDatabase = ForgetfulResourceDatabase(tempdir.name)
 
         registry = (
             (functions.string_split, procedures.string_split(namespace='string_split')),
@@ -18,10 +28,20 @@ class StringSplitE2ETestCase(unittest.TestCase):
 
         manager: ResourceManager = StandardResourceManager(database, registry)
 
-        resources = list(manager.generate(
-            functions.string_split('ABCDEFGH'),
-            functions.string_split('XYZ')))
+        root_lrs = list(manager.generate(reference) for reference in (
+            functions.string_split(message='abcdefghi', indent=0),
+            functions.string_split(message='xyz', indent=0),
+        ))
 
-        print('\n'.join(str(r) for r in resources))  # TEMP
+        log.info('Generated {} root resources:'.format(len(root_lrs)))
+        for root_lr in root_lrs:
+            log.info('    {} ({})'.format(root_lr.location.name, root_lr.location.path))
+
+        all_lrs = list(database.all())
+        log.info('Generated {} resources overall:'.format(len(all_lrs)))
+        for lr in all_lrs:
+            log.info('    {} ({})'.format(lr.location.name, lr.location.path))
+            for line in lr.resource.text.split('\n'):
+                log.debug('        {}'.format(line))
 
         tempdir.cleanup()

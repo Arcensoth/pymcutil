@@ -1,16 +1,11 @@
 import abc
+import collections
 
 ResourceName = str
+ResourcePath = str
 
 
-class ResourceLocation(abc.ABC):
-    def __str__(self):
-        return self.name
-
-    @property
-    def name(self) -> ResourceName:
-        return '{}:{}'.format(self.namespace, self.trail)  # TODO use utility
-
+class ResourceLocation(abc.ABC, collections.Hashable):
     @property
     @abc.abstractmethod
     def namespace(self) -> str:
@@ -33,5 +28,10 @@ class ResourceLocation(abc.ABC):
 
     @property
     @abc.abstractmethod
-    def path(self) -> str:
+    def name(self) -> ResourceName:
+        """ Return the name of the resource, to be used as a reference. """
+
+    @property
+    @abc.abstractmethod
+    def path(self) -> ResourcePath:
         """ Return the file path of the resource, relative to datapack root. """

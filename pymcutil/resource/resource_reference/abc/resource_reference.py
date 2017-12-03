@@ -1,8 +1,9 @@
 import abc
+import collections
 from typing import Tuple
 
 
-class ResourceReference(abc.ABC):
+class ResourceReference(abc.ABC, collections.Hashable):
     @property
     @abc.abstractmethod
     def params(self) -> Tuple:

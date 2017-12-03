@@ -2,8 +2,8 @@ import abc
 
 from pymcutil.resource.abc.resource import Resource
 from pymcutil.resource.resource_location.abc.resource_location import ResourceLocation
+from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager
 from pymcutil.resource.resource_reference.abc.resource_reference import ResourceReference
-from pymcutil.resource.resource_manager.standard_resource_manager import ResourceManager
 
 
 class ResourceGenerator(abc.ABC):
