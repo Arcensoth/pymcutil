@@ -2,7 +2,6 @@ import logging
 import tempfile
 import unittest
 
-import pymcutil.logging
 from pymcutil.resource.resource_database.abc.resource_database import ResourceDatabase
 from pymcutil.resource.resource_database.forgetful_resource_database import ForgetfulResourceDatabase
 from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager
@@ -13,9 +12,6 @@ log = logging.getLogger(__name__)
 
 
 class StringSplitE2ETestCase(unittest.TestCase):
-    def setUp(self):
-        pymcutil.logging.install('DEBUG')
-
     def test(self):
         tempdir = tempfile.TemporaryDirectory()
         log.info('Using temporary directory: {}'.format(tempdir.name))
