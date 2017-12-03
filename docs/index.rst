@@ -18,3 +18,9 @@ Indices and tables
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`
+
+Modules
+=======
+
+.. autoclass:: pymcutil.resource.resource_database.forgetful_resource_database.ForgetfulResourceDatabase
+   :members:
