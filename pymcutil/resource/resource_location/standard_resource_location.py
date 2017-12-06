@@ -1,11 +1,13 @@
+import typing
+
 from pymcutil.resource.resource_location.abc.resource_location import ResourceLocation, ResourceName, ResourcePath
 from pymcutil.util.hash_equality import HashEquality
 
 
 class StandardResourceLocation(ResourceLocation, HashEquality):
-    def __init__(self, namespace: str, trail: str, subfolder: str, extension: str = 'json'):
+    def __init__(self, namespace: str, components: typing.Iterable[str], subfolder: str, extension: str = 'json'):
         self._namespace: str = namespace
-        self._trail: str = trail
+        self._components: typing.Tuple[str] = tuple(components)  # save a copy
         self._subfolder: str = subfolder
         self._extension: str = extension
 
@@ -20,8 +22,13 @@ class StandardResourceLocation(ResourceLocation, HashEquality):
         return self._namespace
 
     @property
+    def components(self) -> typing.Iterable[str]:
+        yield from self._components
+
+    @property
     def trail(self) -> str:
-        return self._trail
+        # TODO use utility
+        return '/'.join(self.components)
 
     @property
     def subfolder(self) -> str:
@@ -38,5 +45,5 @@ class StandardResourceLocation(ResourceLocation, HashEquality):
 
     @property
     def path(self) -> ResourcePath:
-        # TODO use utility
+        # TODO use utility with os-specific separator
         return 'data/{}/{}/{}.{}'.format(self.namespace, self.subfolder, self.trail, self.extension)

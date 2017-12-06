@@ -15,7 +15,7 @@ def split_in_two(s):
 
 class StringSplitProcedure(Procedure):
     def commands(
-            self, manager: ResourceManager, reference: functions.StringSplitFunctionReference) -> Iterable[Command]:
+            self, manager: ResourceManager, reference: functions.StringSplitFunctionResourceReference) -> Iterable[Command]:
         message, indent = reference.params
         yield commands.say(message='. . ' * indent + message)
         if len(message) > 1:

@@ -25,11 +25,11 @@ class ForgetfulResourceDatabase(ResourceDatabase):
 
     def get(self, location: ResourceLocation) -> Union[LocatedResource, None]:
         result = self.data.get(location, None)
-        log.debug('GET {} from {}'.format(type(result.resource).__name__ if result else None, location))
+        log.debug('GOT {} from {}'.format(type(result.resource).__name__ if result else None, location.path))
         return result
 
     def put(self, location: ResourceLocation, resource: Resource) -> LocatedResource:
-        log.debug('PUT {} at {}'.format(type(resource).__name__, location))
+        log.debug('PUT {} at {}'.format(type(resource).__name__, location.path))
 
         resource_path = os.path.join(self.data_path, location.path)
         os.makedirs(os.path.dirname(resource_path), exist_ok=True)

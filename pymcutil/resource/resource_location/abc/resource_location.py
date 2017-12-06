@@ -1,5 +1,6 @@
 import abc
 import collections
+import typing
 
 ResourceName = str
 ResourcePath = str
@@ -10,6 +11,11 @@ class ResourceLocation(abc.ABC, collections.Hashable):
     @abc.abstractmethod
     def namespace(self) -> str:
         """ Return the `namespace` in `namespace:path/to/file`. """
+
+    @property
+    @abc.abstractmethod
+    def components(self) -> typing.Iterable[str]:
+        """ Yield the directory components of `path/to/file` in `namespace:path/to/file`. """
 
     @property
     @abc.abstractmethod
