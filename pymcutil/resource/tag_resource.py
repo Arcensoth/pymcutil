@@ -7,5 +7,6 @@ class TagResource(JsonResource):
     def __init__(self, obj: dict):
         self.obj: dict = obj
 
+    @property
     def serialized(self) -> Any:
         return self.obj
