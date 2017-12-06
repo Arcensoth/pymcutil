@@ -4,7 +4,7 @@ from pymcutil.command.command import Command
 from pymcutil.resource.abc.resource import Resource
 
 
-class Function(Resource):
+class FunctionResource(Resource):
     def __init__(self, commands: Iterable[Command]):
         self.commands: List[Command] = list(commands)
 

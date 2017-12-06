@@ -2,7 +2,7 @@ import abc
 from typing import Iterable
 
 from pymcutil.command.command import Command
-from pymcutil.resource.function import Function
+from pymcutil.resource.function_resource import FunctionResource
 from pymcutil.resource.resource_generator.abc.function_generator import FunctionGenerator
 from pymcutil.resource.resource_location.function_location import FunctionLocation
 from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager
@@ -19,7 +19,7 @@ class Procedure(FunctionGenerator):
         return FunctionLocation(namespace=self.namespace, trail=self.trail(manager, reference))
 
     def generate(self, manager: ResourceManager, reference: FunctionReference):
-        return Function(commands=tuple(self.commands(manager, reference)))
+        return FunctionResource(commands=tuple(self.commands(manager, reference)))
 
     def trail(self, manager: ResourceManager, reference: FunctionReference) -> str:
         return get_resource_trail(self.root, *self.components(manager, reference))

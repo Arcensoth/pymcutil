@@ -2,7 +2,7 @@ import logging
 import tempfile
 import unittest
 
-from pymcutil.resource.function import Function
+from pymcutil.resource.function_resource import FunctionResource
 from pymcutil.resource.resource_database.abc.resource_database import ResourceDatabase
 from pymcutil.resource.resource_database.forgetful_resource_database import ForgetfulResourceDatabase
 from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager
@@ -41,7 +41,7 @@ class StringSplitE2ETestCase(unittest.TestCase):
             location, resource = lr.location, lr.resource
             log.info('    [{}] {} ({})'.format(
                 type(resource).__name__, location.name, location.path))
-            if isinstance(resource, Function):
+            if isinstance(resource, FunctionResource):
                 for line in resource.lines:
                     log.debug('        {}'.format(line))
 
