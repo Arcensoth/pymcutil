@@ -1,11 +1,10 @@
 import typing
 
 from pymcutil.resource.resource_location.abc.resource_location import ResourceLocation, ResourceName, ResourcePath
-from pymcutil.util.hash_equality import HashEquality
 
 
-class StandardResourceLocation(ResourceLocation, HashEquality):
-    def __init__(self, namespace: str, components: typing.Iterable[str], subfolder: str, extension: str = 'json'):
+class StandardResourceLocation(ResourceLocation):
+    def __init__(self, namespace: str, components: typing.Tuple[str], subfolder: str, extension: str = 'json'):
         self._namespace: str = namespace
         self._components: typing.Tuple[str] = tuple(components)  # save a copy
         self._subfolder: str = subfolder
@@ -16,6 +15,9 @@ class StandardResourceLocation(ResourceLocation, HashEquality):
 
     def __hash__(self):
         return hash(self.path)
+
+    def __eq__(self, other: 'StandardResourceLocation'):
+        return isinstance(other, self.__class__) and (self.path == other.path)
 
     @property
     def namespace(self) -> str:
