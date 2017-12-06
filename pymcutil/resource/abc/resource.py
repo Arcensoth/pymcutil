@@ -1,10 +1,9 @@
 import abc
 
 
-class Resource(object):
+class Resource(abc.ABC):
     """ Generic game resource representation, used to define common access methods. """
 
-    @property
     @abc.abstractmethod
-    def text(self) -> str:
-        """ Return the string version of the resource to be written to file. """
+    def write_to(self, path):
+        """ Write this `Resource` to file at `path`. """

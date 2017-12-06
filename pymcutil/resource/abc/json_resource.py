@@ -5,6 +5,6 @@ from pymcutil.util.serializable import Serializable
 
 
 class JsonResource(Resource, Serializable):
-    @property
-    def text(self) -> str:
-        return json.dumps(self.serialized, sort_keys=True, indent=4)
+    def write_to(self, path):
+        with open(path, 'w') as fp:
+            json.dump(self.serialized, fp, sort_keys=True, indent=2)

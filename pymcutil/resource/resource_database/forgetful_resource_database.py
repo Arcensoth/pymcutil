@@ -33,8 +33,7 @@ class ForgetfulResourceDatabase(ResourceDatabase):
 
         resource_path = os.path.join(self.data_path, location.path)
         os.makedirs(os.path.dirname(resource_path), exist_ok=True)
-        with open(resource_path, 'w') as resource_file:
-            resource_file.write(resource.text)
+        resource.write_to(resource_path)
 
         self.data[location] = LocatedResource(location, resource)
         return self.get(location)

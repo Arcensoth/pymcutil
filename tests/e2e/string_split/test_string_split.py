@@ -2,6 +2,7 @@ import logging
 import tempfile
 import unittest
 
+from pymcutil.resource.function import Function
 from pymcutil.resource.resource_database.abc.resource_database import ResourceDatabase
 from pymcutil.resource.resource_database.forgetful_resource_database import ForgetfulResourceDatabase
 from pymcutil.resource.resource_manager.abc.resource_manager import ResourceManager
@@ -31,13 +32,17 @@ class StringSplitE2ETestCase(unittest.TestCase):
 
         log.info('Generated {} root resources:'.format(len(root_lrs)))
         for root_lr in root_lrs:
-            log.info('    {} ({})'.format(root_lr.location.name, root_lr.location.path))
+            log.info('    [{}] {} ({})'.format(
+                type(root_lr.resource).__name__, root_lr.location.name, root_lr.location.path))
 
         all_lrs = list(database.all())
         log.info('Generated {} resources overall:'.format(len(all_lrs)))
         for lr in all_lrs:
-            log.info('    {} ({})'.format(lr.location.name, lr.location.path))
-            for line in lr.resource.text.split('\n'):
-                log.debug('        {}'.format(line))
+            location, resource = lr.location, lr.resource
+            log.info('    [{}] {} ({})'.format(
+                type(resource).__name__, location.name, location.path))
+            if isinstance(resource, Function):
+                for line in resource.lines:
+                    log.debug('        {}'.format(line))
 
         tempdir.cleanup()
