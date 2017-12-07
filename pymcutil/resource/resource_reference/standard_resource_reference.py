@@ -10,9 +10,11 @@ class StandardResourceReference(ResourceReference):
     def __hash__(self):
         return hash(self._params)
 
-    def __eq__(self, other: 'StandardResourceReference'):
+    def __eq__(self, other):
         # TODO needs tested
-        return isinstance(other, self.__class__) and (p1 == p2 for p1, p2 in zip(self.params, other.params))
+        return isinstance(other, StandardResourceReference) \
+               and isinstance(other, self.__class__) \
+               and (p1 == p2 for p1, p2 in zip(self.params, other.params))
 
     @property
     def params(self) -> typing.Iterable[typing.Any]:
