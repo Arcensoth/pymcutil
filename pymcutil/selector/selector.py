@@ -4,7 +4,9 @@ from typing import Any, Iterable, Iterator, Tuple, Union
 
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from pymcutil.position.position import Position
+from pymcutil.selector.advancement_set import AdvancementSet
 from pymcutil.selector.range import Range
+from pymcutil.selector.score_set import ScoreSet
 from pymcutil.util import first
 
 RepeatableString = Union[str, Iterable[str]]
@@ -29,8 +31,9 @@ class Selector(abc.ABC):
             team: str = None, not_teams: RepeatableString = None,
             gamemode: str = None, not_gamemodes: RepeatableString = None,
             tags: RepeatableString = None, not_tags: RepeatableString = None,
-            nbt: RepeatableNBT = None, not_nbt: RepeatableNBT = None,
-            # TODO scores and advancements
+            nbts: RepeatableNBT = None, not_nbts: RepeatableNBT = None,
+            scores: ScoreSet.Generic = None,
+            advancements: AdvancementSet.Generic = None,
             sort: str = None,
             limit: int = None,
     ):
@@ -66,10 +69,14 @@ class Selector(abc.ABC):
         self._not_tags: Tuple[str] = tuplize(not_tags)
 
         # Note that `nbt` is a tuple of DataTag objects, not itself a DataTag.
-        self._nbt: Tuple[CompoundDataTag] = (
-            CompoundDataTag.sift(obj) for obj in tuplize(nbt)) if nbt else ()
-        self._not_nbt: Tuple[CompoundDataTag] = (
-            CompoundDataTag.sift(obj) for obj in tuplize(not_nbt)) if not_nbt else ()
+        self._nbts: Tuple[CompoundDataTag] = (
+            CompoundDataTag.sift(obj) for obj in tuplize(nbts)) if nbts else ()
+        self._not_nbts: Tuple[CompoundDataTag] = (
+            CompoundDataTag.sift(obj) for obj in tuplize(not_nbts)) if not_nbts else ()
+
+        self._scores: ScoreSet = ScoreSet.sift(scores, None)
+
+        self._advancements: AdvancementSet = AdvancementSet.sift(advancements, None)
 
         self._sort: str = sort
 
@@ -110,8 +117,12 @@ class Selector(abc.ABC):
         yield from (('tag=', tag) for tag in self.tags)
         yield from (('tag=!', tag) for tag in self.not_tags)
 
-        yield from (('nbt=', nbt) for nbt in self.nbt)
-        yield from (('nbt=!', nbt) for nbt in self.not_nbt)
+        yield from (('nbt=', nbt) for nbt in self.nbts)
+        yield from (('nbt=!', nbt) for nbt in self.not_nbts)
+
+        yield 'scores=', self.scores
+
+        yield 'advancements=', self.advancements
 
         yield 'sort=', self.sort
 
@@ -201,12 +212,20 @@ class Selector(abc.ABC):
         return self._not_tags
 
     @property
-    def nbt(self) -> Tuple[CompoundDataTag]:
-        return self._nbt
+    def nbts(self) -> Tuple[CompoundDataTag]:
+        return self._nbts
 
     @property
-    def not_nbt(self) -> Tuple[CompoundDataTag]:
-        return self._not_nbt
+    def not_nbts(self) -> Tuple[CompoundDataTag]:
+        return self._not_nbts
+
+    @property
+    def scores(self) -> ScoreSet:
+        return self._scores
+
+    @property
+    def advancements(self) -> AdvancementSet:
+        return self._advancements
 
     @property
     def sort(self) -> str:
