@@ -1,17 +1,18 @@
 import abc
-from typing import Any, Dict, Iterator, List, Tuple, Union
+from numbers import Real
+from typing import Any, Iterable, Iterator, Tuple, Union
 
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from pymcutil.position.position import Position
+from pymcutil.selector.range import Range
+from pymcutil.util import first
 
-# TODO this whole thing is a mess; clean it up
-
-RepeatableString = Union[str, Tuple[str, ...], List[str]]
-RepeatableNBT = Union[CompoundDataTag.Generic, Tuple[CompoundDataTag.Generic, ...], List[CompoundDataTag.Generic]]
+RepeatableString = Union[str, Iterable[str]]
+RepeatableNBT = Union[CompoundDataTag.Generic, Iterable[CompoundDataTag.Generic]]
 
 
 def tuplize(obj) -> tuple:
-    return tuple(obj) if isinstance(obj, (list, tuple)) else (obj,)
+    return (tuple(obj) if isinstance(obj, Iterable) else (obj,)) if obj is not None else ()
 
 
 class Selector(abc.ABC):
@@ -19,122 +20,205 @@ class Selector(abc.ABC):
 
     def __init__(
             self,
-            position: Position.Generic = None, volume: Position.Generic = None,
-            type: str = None, not_type: RepeatableString = None,
-            l: int = None, lm: int = None,
-            m: str = None, not_m: RepeatableString = None,
-            team: str = None, not_team: RepeatableString = None,
-            max_scores: Dict[str, int] = None, min_scores: Dict[str, int] = None,
-            exact_scores: Dict[str, int] = None,
-            name: str = None, not_name: RepeatableString = None,
-            tag: RepeatableString = None, not_tag: RepeatableString = None,
-            r: float = None, rm: float = None,
-            rx: float = None, rxm: float = None, ry: float = None, rym: float = None,
+            position: Position.Generic = None, x: Real = None, y: Real = None, z: Real = None,
+            volume: Position.Generic = None, dx: Real = None, dy: Real = None, dz: Real = None,
+            distance: Range.Generic = None, level: Range.Generic = None,
+            x_rotation: Range.Generic = None, y_rotation: Range.Generic = None,
+            type_: str = None, not_types: RepeatableString = None,
+            name: str = None, not_names: RepeatableString = None,
+            team: str = None, not_teams: RepeatableString = None,
+            gamemode: str = None, not_gamemodes: RepeatableString = None,
+            tags: RepeatableString = None, not_tags: RepeatableString = None,
             nbt: RepeatableNBT = None, not_nbt: RepeatableNBT = None,
-            c: int = None):
+            # TODO scores and advancements
+            sort: str = None,
+            limit: int = None,
+    ):
+        self._position: Position = Position.sift(position, None)
+        self._x: Real = x
+        self._y: Real = y
+        self._z: Real = z
 
-        self.position = Position.sift(position, None)
-        self.volume = Position.sift(volume, None)
+        self._volume: Position = Position.sift(volume, None)
+        self._dx: Real = dx
+        self._dy: Real = dy
+        self._dz: Real = dz
 
-        self.type = str(type) if type is not None else None
-        self.not_type: Tuple[str] = tuplize(not_type)
+        self._distance: Range = distance
+        self._level: Range = level
 
-        self.l = int(l) if l is not None else None
-        self.lm = int(lm) if lm is not None else None
+        self._x_rotation: Range = x_rotation
+        self._y_rotation: Range = y_rotation
 
-        self.m = str(m) if m is not None else None
-        self.not_m: Tuple[str] = tuplize(not_m)
+        self._type: str = type_
+        self._not_types: Tuple[str] = tuplize(not_types)
 
-        self.team = str(team) if team is not None else None
-        self.not_team: Tuple[str] = tuplize(not_team)
+        self._name: str = name
+        self._not_names: Tuple[str] = tuplize(not_names)
 
-        self.max_scores = max_scores or {}
-        self.min_scores = min_scores or {}
+        self._team: str = team
+        self._not_teams: Tuple[str] = tuplize(not_teams)
 
-        self.name = str(name) if name is not None else None
-        self.not_name: Tuple[str] = tuplize(not_name)
+        self._gamemode: str = gamemode
+        self._not_gamemodes: Tuple[str] = tuplize(not_gamemodes)
 
-        self.tag: Tuple[str] = tuplize(tag)
-        self.not_tag: Tuple[str] = tuplize(not_tag)
-
-        self.r = float(r) if r is not None else None
-        self.rm = float(rm) if rm is not None else None
-
-        self.rx = float(rx) if rx is not None else None
-        self.rxm = float(rxm) if rxm is not None else None
-        self.ry = float(ry) if ry is not None else None
-        self.rym = float(rym) if rym is not None else None
+        self._tags: Tuple[str] = tuplize(tags)
+        self._not_tags: Tuple[str] = tuplize(not_tags)
 
         # Note that `nbt` is a tuple of DataTag objects, not itself a DataTag.
-        self.nbt: Tuple[CompoundDataTag] = (
+        self._nbt: Tuple[CompoundDataTag] = (
             CompoundDataTag.sift(obj) for obj in tuplize(nbt)) if nbt else ()
-        self.not_nbt: Tuple[CompoundDataTag] = (
+        self._not_nbt: Tuple[CompoundDataTag] = (
             CompoundDataTag.sift(obj) for obj in tuplize(not_nbt)) if not_nbt else ()
 
-        self.c = int(c) if c is not None else None
+        self._sort: str = sort
 
-        if exact_scores:
-            for k, v in exact_scores.items():
-                self.max_scores[k] = v
-                self.min_scores[k] = v
+        self._limit: int = limit
 
     def __str__(self):
         return self.to_str()
 
     def _arguments_nullable(self):
-        # Argument processing order:
-        # x/y/z, dx/dy/dz, type, l/lm, m, team, score, name, tag, r/rm, rx/rxm/ry/rym, nbt, c
+        yield 'x=', self.x
+        yield 'y=', self.y
+        yield 'z=', self.z
 
-        yield 'x=', self.position.x if self.position else None
-        yield 'y=', self.position.y if self.position else None
-        yield 'z=', self.position.z if self.position else None
-        yield 'dx=', self.volume.x if self.volume else None
-        yield 'dy=', self.volume.y if self.volume else None
-        yield 'dz=', self.volume.z if self.volume else None
+        yield 'dx=', self.dx
+        yield 'dy=', self.dy
+        yield 'dz=', self.dz
+
+        yield 'distance=', self.distance
+        yield 'level=', self.level
+
+        yield 'x_rotation=', self.x_rotation
+        yield 'y_rotation=', self.y_rotation
 
         yield 'type=', self.type
-        yield from (('type=!', type_) for type_ in self.not_type)
-
-        yield 'l=', self.l
-        yield 'lm=', self.lm
-
-        yield 'm=', self.m
-        yield from (('m=!', m) for m in self.not_m)
-
-        yield 'team=', self.team
-        yield from (('team=!', team) for team in self.not_team)
-
-        yield from (('score_{}='.format(objective), score) for objective, score in self.max_scores.items())
-        yield from (('score_{}_min='.format(objective), score) for objective, score in self.min_scores.items())
+        yield from (('type=!', type_) for type_ in self.not_types)
 
         # TODO sanitize name and tags in case of spaces
 
         yield 'name=', self.name
-        yield from (('name=!', name) for name in self.not_name)
+        yield from (('name=!', name) for name in self.not_names)
 
-        yield from (('tag=', tag) for tag in self.tag)
-        yield from (('tag=!', tag) for tag in self.not_tag)
+        yield 'team=', self.team
+        yield from (('team=!', team) for team in self.not_teams)
 
-        yield 'r=', self.r
-        yield 'rm=', self.rm
+        yield 'gamemode=', self.gamemode
+        yield from (('gamemode=!', gamemode) for gamemode in self.not_gamemodes)
 
-        # TODO do these still need to be rounded?
-        yield 'rx=', round(self.rx, 1) if self.rx is not None else None
-        yield 'rxm=', round(self.rxm, 1) if self.rxm is not None else None
-        yield 'ry=', round(self.ry, 1) if self.ry is not None else None
-        yield 'rym=', round(self.rym, 1) if self.rym is not None else None
+        yield from (('tag=', tag) for tag in self.tags)
+        yield from (('tag=!', tag) for tag in self.not_tags)
 
         yield from (('nbt=', nbt) for nbt in self.nbt)
         yield from (('nbt=!', nbt) for nbt in self.not_nbt)
 
-        yield 'c=', self.c
+        yield 'sort=', self.sort
 
-    def arguments(self) -> Iterator[Tuple[str, Any]]:
+        yield 'limit=', self.limit
+
+    def _arguments(self) -> Iterator[Tuple[str, Any]]:
         yield from ((k, v) for k, v in self._arguments_nullable() if v is not None)
+
+    @property
+    def x(self) -> Real:
+        return first(self._x, self._position.x if self._position is not None else None)
+
+    @property
+    def y(self) -> Real:
+        return first(self._y, self._position.y if self._position is not None else None)
+
+    @property
+    def z(self) -> Real:
+        return first(self._z, self._position.z if self._position is not None else None)
+
+    @property
+    def dx(self) -> Real:
+        return first(self._dx, self._volume.x if self._volume is not None else None)
+
+    @property
+    def dy(self) -> Real:
+        return first(self._dy, self._volume.y if self._volume is not None else None)
+
+    @property
+    def dz(self) -> Real:
+        return first(self._dz, self._volume.z if self._volume is not None else None)
+
+    @property
+    def distance(self) -> Range:
+        return self._distance
+
+    @property
+    def level(self) -> Range:
+        return self._level
+
+    @property
+    def x_rotation(self) -> Range:
+        return self._x_rotation
+
+    @property
+    def y_rotation(self) -> Range:
+        return self._y_rotation
+
+    @property
+    def type(self) -> str:
+        return self._type
+
+    @property
+    def not_types(self) -> Tuple[str]:
+        return self._not_types
+
+    @property
+    def name(self) -> str:
+        return self._name
+
+    @property
+    def not_names(self) -> Tuple[str]:
+        return self._not_names
+
+    @property
+    def team(self) -> str:
+        return self._team
+
+    @property
+    def not_teams(self) -> Tuple[str]:
+        return self._not_teams
+
+    @property
+    def gamemode(self) -> str:
+        return self._gamemode
+
+    @property
+    def not_gamemodes(self) -> Tuple[str]:
+        return self._not_gamemodes
+
+    @property
+    def tags(self) -> Tuple[str]:
+        return self._tags
+
+    @property
+    def not_tags(self) -> Tuple[str]:
+        return self._not_tags
+
+    @property
+    def nbt(self) -> Tuple[CompoundDataTag]:
+        return self._nbt
+
+    @property
+    def not_nbt(self) -> Tuple[CompoundDataTag]:
+        return self._not_nbt
+
+    @property
+    def sort(self) -> str:
+        return self._sort
+
+    @property
+    def limit(self) -> int:
+        return self._limit
 
     def to_str(self) -> str:
         selector_str = '@{}'.format(self.base)
-        args_str = ','.join(''.join((key, str(value))) for key, value in self.arguments())
+        args_str = ','.join('='.join((key, str(value))) for key, value in self._arguments())
         if args_str:
             selector_str = '{}[{}]'.format(selector_str, args_str)
         return selector_str
