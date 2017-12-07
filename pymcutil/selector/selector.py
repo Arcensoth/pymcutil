@@ -7,9 +7,12 @@ from pymcutil.position.position import Position
 from pymcutil.selector.advancement_set import AdvancementSet
 from pymcutil.selector.range import Range
 from pymcutil.selector.score_set import ScoreSet
+from pymcutil.selector.selector_sort import SelectorSort
 from pymcutil.util import first
+from pymcutil.util.gamemode import Gamemode
 
 RepeatableString = Union[str, Iterable[str]]
+RepeatableGamemode = Union[Gamemode, Iterable[Gamemode]]
 RepeatableNBT = Union[CompoundDataTag.Generic, Iterable[CompoundDataTag.Generic]]
 
 
@@ -29,12 +32,12 @@ class Selector(abc.ABC):
             type_: str = None, not_types: RepeatableString = None,
             name: str = None, not_names: RepeatableString = None,
             team: str = None, not_teams: RepeatableString = None,
-            gamemode: str = None, not_gamemodes: RepeatableString = None,
+            gamemode: Gamemode = None, not_gamemodes: RepeatableGamemode = None,
             tags: RepeatableString = None, not_tags: RepeatableString = None,
             nbts: RepeatableNBT = None, not_nbts: RepeatableNBT = None,
             scores: ScoreSet.Generic = None,
             advancements: AdvancementSet.Generic = None,
-            sort: str = None,
+            sort: SelectorSort = None,
             limit: int = None,
     ):
         self._position: Position = Position.sift(position, None)
@@ -62,8 +65,8 @@ class Selector(abc.ABC):
         self._team: str = team
         self._not_teams: Tuple[str] = tuplize(not_teams)
 
-        self._gamemode: str = gamemode
-        self._not_gamemodes: Tuple[str] = tuplize(not_gamemodes)
+        self._gamemode: Gamemode = gamemode
+        self._not_gamemodes: Tuple[Gamemode] = tuplize(not_gamemodes)
 
         self._tags: Tuple[str] = tuplize(tags)
         self._not_tags: Tuple[str] = tuplize(not_tags)
@@ -78,7 +81,7 @@ class Selector(abc.ABC):
 
         self._advancements: AdvancementSet = AdvancementSet.sift(advancements, None)
 
-        self._sort: str = sort
+        self._sort: SelectorSort = sort
 
         self._limit: int = limit
 
@@ -196,11 +199,11 @@ class Selector(abc.ABC):
         return self._not_teams
 
     @property
-    def gamemode(self) -> str:
+    def gamemode(self) -> Gamemode:
         return self._gamemode
 
     @property
-    def not_gamemodes(self) -> Tuple[str]:
+    def not_gamemodes(self) -> Tuple[Gamemode]:
         return self._not_gamemodes
 
     @property
@@ -228,7 +231,7 @@ class Selector(abc.ABC):
         return self._advancements
 
     @property
-    def sort(self) -> str:
+    def sort(self) -> SelectorSort:
         return self._sort
 
     @property
