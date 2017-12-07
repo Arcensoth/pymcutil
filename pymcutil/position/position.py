@@ -13,10 +13,10 @@ class Position(Vector3D):
     Generic = ['Position', Iterable]
 
     @classmethod
-    def _siftobj(cls, obj):
+    def _from_other(cls, obj):
         # A tuple `(x, y, z)` will produce relative coordinates, whereas everything else (such as a list `[x, y, z]`)
         # will instead produce absolute coordinates.
-        sifted = super()._siftobj(obj)
+        sifted = super()._from_other(obj)
         return ~sifted if isinstance(obj, tuple) else sifted
 
     def __init__(self, x: float, y: float, z: float):

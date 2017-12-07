@@ -20,7 +20,7 @@ class Block(Siftable):
             '[{}]'.format(self.block_state) if self.block_state else ''))
 
     @classmethod
-    def _siftobj(cls, obj):
+    def _from_other(cls, obj):
         if isinstance(obj, str):
             return Block(block_id=obj)  # TODO parse state and nbt
 
