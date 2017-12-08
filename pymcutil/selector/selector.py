@@ -38,8 +38,9 @@ class Selector(abc.ABC):
             self,
             position: Position.Generic = None, x: Real = None, y: Real = None, z: Real = None,
             volume: Position.Generic = None, dx: Real = None, dy: Real = None, dz: Real = None,
-            distance: Range.Generic = None, level: Range.Generic = None,
             x_rotation: Range.Generic = None, y_rotation: Range.Generic = None,
+            distance: Range.Generic = None,
+            level: Range.Generic = None,
             type_: str = None, not_types: RepeatableString = None,
             name: str = None, not_names: RepeatableString = None,
             team: str = None, not_teams: RepeatableString = None,
@@ -51,50 +52,53 @@ class Selector(abc.ABC):
             sort: SelectorSort = None,
             limit: int = None,
     ):
-        self._position: Position = Position.sift(position, None)
-        self._x: Real = x
-        self._y: Real = y
-        self._z: Real = z
+        # Don't actually save these; just use them for intermediate calculations.
+        position = Position.sift(position) if position is not None else None
+        volume = Position.sift(volume) if volume is not None else None
 
-        self._volume: Position = Position.sift(volume, None)
-        self._dx: Real = dx
-        self._dy: Real = dy
-        self._dz: Real = dz
+        self.x: Real = first(x, position.x if isinstance(position, Position) else None)
+        self.y: Real = first(y, position.y if isinstance(position, Position) else None)
+        self.z: Real = first(z, position.z if isinstance(position, Position) else None)
 
-        self._distance: Range = distance
-        self._level: Range = level
+        self.dx: Real = first(dx, volume.x if isinstance(volume, Position) else None)
+        self.dy: Real = first(dy, volume.y if isinstance(volume, Position) else None)
+        self.dz: Real = first(dz, volume.z if isinstance(volume, Position) else None)
 
-        self._x_rotation: Range = x_rotation
-        self._y_rotation: Range = y_rotation
+        self.x_rotation: Range = Range.sift(x_rotation)
+        self.y_rotation: Range = Range.sift(y_rotation)
 
-        self._type: str = type_
-        self._not_types: Tuple[str] = tuplize(not_types)
+        self.distance: Range = Range.sift(distance)
 
-        self._name: str = name
-        self._not_names: Tuple[str] = tuplize(not_names)
+        self.level: Range = Range.sift(level)
 
-        self._team: str = team
-        self._not_teams: Tuple[str] = tuplize(not_teams)
+        self.type: str = type_
+        self.not_types: Tuple[str] = tuplize(not_types)
 
-        self._gamemode: Gamemode = gamemode
-        self._not_gamemodes: Tuple[Gamemode] = tuplize(not_gamemodes)
+        self.name: str = name
+        self.not_names: Tuple[str] = tuplize(not_names)
 
-        self._tags: Tuple[str] = tuplize(tags)
-        self._not_tags: Tuple[str] = tuplize(not_tags)
+        self.team: str = team
+        self.not_teams: Tuple[str] = tuplize(not_teams)
 
-        # Note that `nbt` is a tuple of DataTag objects, not itself a DataTag.
-        self._nbts: Tuple[CompoundDataTag] = (
+        self.gamemode: Gamemode = gamemode
+        self.not_gamemodes: Tuple[Gamemode] = tuplize(not_gamemodes)
+
+        self.tags: Tuple[str] = tuplize(tags)
+        self.not_tags: Tuple[str] = tuplize(not_tags)
+
+        # These are `tuple`s of `DataTag`s, not themselves `DataTag`s.
+        self.nbts: Tuple[CompoundDataTag] = (
             CompoundDataTag.sift(obj) for obj in tuplize(nbts)) if nbts else ()
-        self._not_nbts: Tuple[CompoundDataTag] = (
+        self.not_nbts: Tuple[CompoundDataTag] = (
             CompoundDataTag.sift(obj) for obj in tuplize(not_nbts)) if not_nbts else ()
 
-        self._scores: ScoreSet = ScoreSet.sift(scores, None)
+        self.scores: ScoreSet = ScoreSet.sift(scores, None)
 
-        self._advancements: AdvancementSet = AdvancementSet.sift(advancements, None)
+        self.advancements: AdvancementSet = AdvancementSet.sift(advancements, None)
 
-        self._sort: SelectorSort = sort
+        self.sort: SelectorSort = sort
 
-        self._limit: int = limit
+        self.limit: int = limit
 
     def __str__(self):
         return self.to_str()
@@ -144,110 +148,6 @@ class Selector(abc.ABC):
 
     def _arguments(self) -> Iterator[Tuple[str, Any]]:
         yield from ((k, v) for k, v in self._arguments_nullable() if v is not None)
-
-    @property
-    def x(self) -> Real:
-        return first(self._x, self._position.x if self._position is not None else None)
-
-    @property
-    def y(self) -> Real:
-        return first(self._y, self._position.y if self._position is not None else None)
-
-    @property
-    def z(self) -> Real:
-        return first(self._z, self._position.z if self._position is not None else None)
-
-    @property
-    def dx(self) -> Real:
-        return first(self._dx, self._volume.x if self._volume is not None else None)
-
-    @property
-    def dy(self) -> Real:
-        return first(self._dy, self._volume.y if self._volume is not None else None)
-
-    @property
-    def dz(self) -> Real:
-        return first(self._dz, self._volume.z if self._volume is not None else None)
-
-    @property
-    def distance(self) -> Range:
-        return self._distance
-
-    @property
-    def level(self) -> Range:
-        return self._level
-
-    @property
-    def x_rotation(self) -> Range:
-        return self._x_rotation
-
-    @property
-    def y_rotation(self) -> Range:
-        return self._y_rotation
-
-    @property
-    def type(self) -> str:
-        return self._type
-
-    @property
-    def not_types(self) -> Tuple[str]:
-        return self._not_types
-
-    @property
-    def name(self) -> str:
-        return self._name
-
-    @property
-    def not_names(self) -> Tuple[str]:
-        return self._not_names
-
-    @property
-    def team(self) -> str:
-        return self._team
-
-    @property
-    def not_teams(self) -> Tuple[str]:
-        return self._not_teams
-
-    @property
-    def gamemode(self) -> Gamemode:
-        return self._gamemode
-
-    @property
-    def not_gamemodes(self) -> Tuple[Gamemode]:
-        return self._not_gamemodes
-
-    @property
-    def tags(self) -> Tuple[str]:
-        return self._tags
-
-    @property
-    def not_tags(self) -> Tuple[str]:
-        return self._not_tags
-
-    @property
-    def nbts(self) -> Tuple[CompoundDataTag]:
-        return self._nbts
-
-    @property
-    def not_nbts(self) -> Tuple[CompoundDataTag]:
-        return self._not_nbts
-
-    @property
-    def scores(self) -> ScoreSet:
-        return self._scores
-
-    @property
-    def advancements(self) -> AdvancementSet:
-        return self._advancements
-
-    @property
-    def sort(self) -> SelectorSort:
-        return self._sort
-
-    @property
-    def limit(self) -> int:
-        return self._limit
 
     def to_str(self) -> str:
         selector_str = '@{}'.format(self.base)
