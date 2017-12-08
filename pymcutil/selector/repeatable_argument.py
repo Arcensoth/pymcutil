@@ -1,13 +1,15 @@
-import collections
-import typing
+from typing import Callable, Generic, Iterable, Sequence, TypeVar
 
 
 def no_op_converter(value):
     return value
 
 
-class RepeatableArgument(collections.Sequence):
-    def __init__(self, values: typing.Iterable):
+T = TypeVar('T')
+
+
+class RepeatableArgument(Generic[T], Sequence[T]):
+    def __init__(self, values: Iterable):
         self.values: list = list(values)
 
     def __getitem__(self, index):
@@ -17,7 +19,7 @@ class RepeatableArgument(collections.Sequence):
         return self.values.__len__()
 
     @classmethod
-    def expand(cls, obj, converter: typing.Callable = no_op_converter):
+    def expand(cls, obj, converter: Callable = no_op_converter):
         if obj is None:
             return None
 
