@@ -1,6 +1,6 @@
 import abc
 from numbers import Real
-from typing import Iterable, Union
+from typing import Iterable, Mapping, Union
 
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from pymcutil.position.position import Position
@@ -8,23 +8,26 @@ from pymcutil.selector.advancement_set import AdvancementSet
 from pymcutil.selector.range import Range
 from pymcutil.selector.repeatable_argument import RepeatableArgument
 from pymcutil.selector.score_set import ScoreSet
+from pymcutil.selector.selector_arguments import SelectorArguments
 from pymcutil.symbols.gamemodes.gamemode import Gamemode
 from pymcutil.symbols.selector_sorts.selector_sort import SelectorSort
 from pymcutil.util import first
-from pymcutil.util.common_mapping import CommonMapping
+from pymcutil.util.siftable import SiftableMapping
 
 RepeatableString = Union[str, Iterable[str]]
 RepeatableGamemode = Union[Gamemode, Iterable[Gamemode]]
 RepeatableNBT = Union[CompoundDataTag.Generic, Iterable[CompoundDataTag.Generic]]
 
 
-class Selector(CommonMapping):
+class Selector(SiftableMapping):
     """
     Represents a Minecraft target selector, with similar arguments and some built-in conveniences.
 
     Provided arguments cascade such that the most specific value is used. For example, an explicitly provided `x`
     coordinate will take precedence over the `x` component of any given `position`.
     """
+
+    Generic = ['Selector', Mapping]
 
     def __init__(
             self,
@@ -44,12 +47,11 @@ class Selector(CommonMapping):
             sort: SelectorSort = None,
             limit: int = None,
     ):
-        # Don't actually save these; just use them for intermediate calculations.
+        # These are only used for intermediate calculations.
         position = Position.sift(position, None)
         volume = Position.sift(volume, None)
 
-        # Build an initial mapping of arguments.
-        mapping = dict(
+        self.arguments = SelectorArguments(
             x=first(x, position.x if isinstance(position, Position) else None),
             y=first(y, position.y if isinstance(position, Position) else None),
             z=first(z, position.z if isinstance(position, Position) else None),
@@ -65,7 +67,7 @@ class Selector(CommonMapping):
 
             level=Range.sift(level, None),
 
-            type=type_,
+            type_=type_,
             not_types=RepeatableArgument.expand(not_types),
 
             name=name,
@@ -92,11 +94,6 @@ class Selector(CommonMapping):
             limit=limit,
         )
 
-        # Remove null values from the mapping before using it.
-        culled_mapping = {k: v for k, v in mapping.items() if v is not None}
-
-        super().__init__(**culled_mapping)
-
     def __str__(self):
         innards = ','.join(('{}={}'.format(k, v) for k, v in self.expanded_items()))
         return ''.join((
@@ -107,115 +104,11 @@ class Selector(CommonMapping):
 
     def expanded_items(self):
         # We need to expand `RepeatableArguments` to get several items per key.
-        for k, v in self.items():
+        for k, v in self.arguments:
             if isinstance(v, RepeatableArgument):
-                yield from (k, rv for rv in v.values)
+                yield from ((k, rv) for rv in v.values)
             else:
                 yield k, v
-
-    @property
-    def x(self) -> Union[Real, None]:
-        return self.get('x', None)
-
-    @property
-    def y(self) -> Union[Real, None]:
-        return self.get('y', None)
-
-    @property
-    def z(self) -> Union[Real, None]:
-        return self.get('z', None)
-
-    @property
-    def dx(self) -> Union[Real, None]:
-        return self.get('dx', None)
-
-    @property
-    def dy(self) -> Union[Real, None]:
-        return self.get('dy', None)
-
-    @property
-    def dz(self) -> Union[Real, None]:
-        return self.get('dz', None)
-
-    @property
-    def distance(self) -> Union[Range, None]:
-        return self.get('distance', None)
-
-    @property
-    def level(self) -> Union[Range, None]:
-        return self.get('level', None)
-
-    @property
-    def x_rotation(self) -> Union[Range, None]:
-        return self.get('x_rotation', None)
-
-    @property
-    def y_rotation(self) -> Union[Range, None]:
-        return self.get('y_rotation', None)
-
-    @property
-    def type(self) -> Union[str, None]:
-        return self.get('type', None)
-
-    @property
-    def not_types(self) -> Union[RepeatableArgument[str], None]:
-        return self.get('not_types', None)
-
-    @property
-    def name(self) -> Union[str, None]:
-        return self.get('name', None)
-
-    @property
-    def not_names(self) -> Union[RepeatableArgument[str], None]:
-        return self.get('not_names', None)
-
-    @property
-    def team(self) -> Union[str, None]:
-        return self.get('team', None)
-
-    @property
-    def not_teams(self) -> Union[RepeatableArgument[str], None]:
-        return self.get('not_teams', None)
-
-    @property
-    def gamemode(self) -> Union[Gamemode, None]:
-        return self.get('gamemode', None)
-
-    @property
-    def not_gamemodes(self) -> Union[RepeatableArgument[Gamemode], None]:
-        return self.get('not_gamemodes', None)
-
-    @property
-    def tags(self) -> Union[RepeatableArgument[str], None]:
-        return self.get('tags', None)
-
-    @property
-    def not_tags(self) -> Union[RepeatableArgument[str], None]:
-        return self.get('not_tags', None)
-
-    @property
-    def nbts(self) -> Union[RepeatableArgument[CompoundDataTag], None]:
-        return self.get('nbts', None)
-
-    @property
-    def not_nbts(self) -> Union[RepeatableArgument[CompoundDataTag], None]:
-        return self.get('not_nbts', None)
-
-    @property
-    def scores(self) -> Union[ScoreSet, None]:
-        return self.get('scores', None)
-
-    @property
-    def advancements(self) -> Union[AdvancementSet, None]:
-        return self.get('advancements', None)
-
-    @property
-    def sort(self) -> Union[SelectorSort, None]:
-        return self.get('sort', None)
-
-    @property
-    def limit(self) -> Union[int, None]:
-        return self.get('limit', None)
 
     @classmethod
     @abc.abstractmethod
