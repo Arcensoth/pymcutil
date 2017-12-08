@@ -4,8 +4,8 @@ BASE = 's'
 
 
 class SelfSelector(Selector):
-    @property
-    def base(self):
+    @classmethod
+    def base(cls) -> str:
         return BASE
 
 

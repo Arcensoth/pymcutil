@@ -4,8 +4,8 @@ BASE = 'e'
 
 
 class EntitiesSelector(Selector):
-    @property
-    def base(self):
+    @classmethod
+    def base(cls):
         return BASE
 
 
