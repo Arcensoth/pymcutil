@@ -2,10 +2,10 @@ from collections import Iterable, MutableSequence
 
 from pymcutil.data_tag import DataTag
 from pymcutil.data_tag.helper import data_taggify
-from pymcutil.util.siftable import SiftableSequence
+from pymcutil.util.siftable import SequenceSiftable
 
 
-class ListDataTag(DataTag, MutableSequence, SiftableSequence):
+class ListDataTag(DataTag, MutableSequence, SequenceSiftable):
     """ A list data tag, also known as TAG_List. """
 
     Generic = Iterable

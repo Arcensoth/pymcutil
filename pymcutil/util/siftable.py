@@ -33,13 +33,13 @@ class Siftable(abc.ABC):
         """ Return an instance of `cls` constructed from the non-`cls`, non-null generic object `obj`. """
 
 
-class SiftableSequence(Siftable):
+class SequenceSiftable(Siftable):
     @classmethod
     def _from_other(cls, obj):
         return cls(*obj)
 
 
-class SiftableMapping(Siftable):
+class MappingSiftable(Siftable):
     @classmethod
     def _from_other(cls, obj):
         return cls(**obj)

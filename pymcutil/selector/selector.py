@@ -12,14 +12,14 @@ from pymcutil.selector.selector_arguments import SelectorArguments
 from pymcutil.symbols.gamemodes.gamemode import Gamemode
 from pymcutil.symbols.selector_sorts.selector_sort import SelectorSort
 from pymcutil.util import first
-from pymcutil.util.siftable import SiftableMapping
+from pymcutil.util.siftable import MappingSiftable
 
 RepeatableString = Union[str, Iterable[str]]
 RepeatableGamemode = Union[Gamemode, Iterable[Gamemode]]
 RepeatableNBT = Union[CompoundDataTag.Generic, Iterable[CompoundDataTag.Generic]]
 
 
-class Selector(SiftableMapping):
+class Selector(MappingSiftable):
     """
     Represents a Minecraft target selector, with similar arguments and some built-in conveniences.
 

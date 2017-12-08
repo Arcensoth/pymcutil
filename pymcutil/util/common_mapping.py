@@ -1,10 +1,10 @@
 import collections
 import typing
 
-from pymcutil.util.siftable import SiftableMapping
+from pymcutil.util.siftable import MappingSiftable
 
 
-class CommonMapping(collections.MutableMapping, SiftableMapping):
+class CommonMapping(collections.MutableMapping, MappingSiftable):
     Generic = typing.Mapping
 
     def __init__(self, **kwargs):

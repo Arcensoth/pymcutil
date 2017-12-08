@@ -1,9 +1,9 @@
 from typing import List, Iterable
 
-from pymcutil.util.siftable import SiftableSequence
+from pymcutil.util.siftable import SequenceSiftable
 
 
-class Vector(Iterable, SiftableSequence):
+class Vector(Iterable, SequenceSiftable):
     def __init__(self, *components):
         # Don't cast potential subtypes of float into normal floats!
         self._components = [c if isinstance(c, float) else float(c) for c in components]

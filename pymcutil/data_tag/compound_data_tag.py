@@ -3,10 +3,10 @@ from collections import Mapping, MutableMapping
 from pymcutil.data_tag import DataTag
 from pymcutil.data_tag.helper import data_taggify
 from pymcutil.data_tag.string_data_tag import StringDataTag
-from pymcutil.util.siftable import SiftableMapping
+from pymcutil.util.siftable import MappingSiftable
 
 
-class CompoundDataTag(DataTag, MutableMapping, SiftableMapping):
+class CompoundDataTag(DataTag, MutableMapping, MappingSiftable):
     """ A compound data tag, also known as TAG_Compound. """
 
     Generic = Mapping
