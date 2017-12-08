@@ -4,7 +4,7 @@ from pymcutil.resource.resource_location.abc.resource_location import ResourceLo
 
 
 class StandardResourceLocation(ResourceLocation):
-    def __init__(self, namespace: str, components: typing.Tuple[str], subfolder: str, extension: str = 'json'):
+    def __init__(self, namespace: str, components: typing.Iterable[str], subfolder: str, extension: str = 'json'):
         self._namespace: str = namespace
         self._components: typing.Tuple[str] = tuple(components)  # save a copy
         self._subfolder: str = subfolder
