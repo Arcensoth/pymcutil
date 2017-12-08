@@ -17,11 +17,22 @@ RepeatableNBT = Union[CompoundDataTag.Generic, Iterable[CompoundDataTag.Generic]
 
 
 def tuplize(obj) -> tuple:
-    return (tuple(obj) if isinstance(obj, Iterable) else (obj,)) if obj is not None else ()
+    if obj is None:
+        return ()
+    elif isinstance(obj, (str, Gamemode, CompoundDataTag.Generic)):
+        return obj,  # wrap in a tuple
+    elif isinstance(obj, Iterable):
+        return tuple(obj)  # make a copy
+    raise ValueError('Invalid selector argument: {}'.format(obj))
 
 
 class Selector(abc.ABC):
-    """ An abstract base class representing a Minecraft target selector. """
+    """
+    Represents a Minecraft target selector, with similar arguments and some built-in conveniences.
+
+    Provided arguments cascade such that the most specific value is used. For example, an explicitly provided `x`
+    coordinate will take precedence over the `x` component of any given `position`.
+    """
 
     def __init__(
             self,
