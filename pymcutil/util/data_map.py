@@ -1,7 +1,7 @@
 import collections
 
 
-class DataProtocol(collections.Iterable):
+class DataMap(collections.MutableMapping):
     def __init__(self, **kwargs):
         self._data: dict = {}
         for k, v in kwargs.items():
@@ -10,6 +10,12 @@ class DataProtocol(collections.Iterable):
 
     def __getitem__(self, key):
         return self._data.__getitem__(key)
+
+    def __setitem__(self, key, value):
+        return self._data.__setitem__(key, value)
+
+    def __delitem__(self, key):
+        return self._data.__delitem__(key)
 
     def __len__(self):
         return self._data.__len__()
