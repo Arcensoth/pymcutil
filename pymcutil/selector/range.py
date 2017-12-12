@@ -80,11 +80,11 @@ class Range(Siftable):
                and (self.max == other.max)
 
     @property
-    def min(self) -> typing.Optional[Real, None]:
+    def min(self) -> typing.Union[Real, None]:
         return self._min
 
     @property
-    def max(self) -> typing.Optional[Real, None]:
+    def max(self) -> typing.Union[Real, None]:
         return self._max
 
     @property
