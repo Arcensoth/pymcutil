@@ -1,3 +1,4 @@
+import typing
 from numbers import Real
 from typing import Iterable, Union
 
@@ -20,7 +21,7 @@ class Range(Siftable):
         Range(..., 2) => ..2
         Range(1, 2) => 1..2
 
-    Any numeric, string, or iterable objects may be implicitly converted in context:
+    Any numeric, iterable, or string objects may be implicitly converted in context:
 
         1 => Range(1)
         (1, ...) => Range(1, ...)
@@ -42,7 +43,7 @@ class Range(Siftable):
 
     @classmethod
     def from_real(cls, n: Real):
-        """ Convert real numbers as exact values. """
+        """ Convert real numbers as is_exact values. """
         return cls(n)
 
     @classmethod
@@ -62,12 +63,12 @@ class Range(Siftable):
         return cls(min_, max_)
 
     def __init__(self, min_: Real, max_: Real = None):
-        self.min: Real = min_
-        self.max: Real = max_ if max_ is not None else min_  # Range(1) => Range(1, 1)
+        self._min: Real = min_
+        self._max: Real = max_ if max_ is not None else min_  # Range(1) => Range(1, 1)
 
     def __str__(self):
         min_str = '{:g}'.format(self.min) if isinstance(self.min, Real) else ''
-        if self.exact:
+        if self.is_exact:
             return min_str
         max_str = '{:g}'.format(self.max) if isinstance(self.max, Real) else ''
         return '{}..{}'.format(min_str, max_str)
@@ -79,5 +80,13 @@ class Range(Siftable):
                and (self.max == other.max)
 
     @property
-    def exact(self):
+    def min(self) -> typing.Optional[Real, None]:
+        return self._min
+
+    @property
+    def max(self) -> typing.Optional[Real, None]:
+        return self._max
+
+    @property
+    def is_exact(self) -> bool:
         return isinstance(self.min, Real) and (self.min == self.max)
