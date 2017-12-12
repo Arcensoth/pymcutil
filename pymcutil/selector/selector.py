@@ -1,6 +1,6 @@
 import abc
+import typing
 from numbers import Real
-from typing import Iterable, Mapping, Union
 
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from pymcutil.position.position import Position
@@ -14,9 +14,9 @@ from pymcutil.symbols.selector_sorts.selector_sort import SelectorSort
 from pymcutil.util import first
 from pymcutil.util.siftable import MappingSiftable
 
-RepeatableString = Union[str, Iterable[str]]
-RepeatableGamemode = Union[Gamemode, Iterable[Gamemode]]
-RepeatableNBT = Union[CompoundDataTag.Generic, Iterable[CompoundDataTag.Generic]]
+RepeatableString = typing.Union[str, typing.Iterable[str]]
+RepeatableGamemode = typing.Union[Gamemode, typing.Iterable[Gamemode]]
+RepeatableNBT = typing.Union[CompoundDataTag.Generic, typing.Iterable[CompoundDataTag.Generic]]
 
 
 class Selector(MappingSiftable):
@@ -27,7 +27,7 @@ class Selector(MappingSiftable):
     coordinate will take precedence over the `x` component of any given `position`.
     """
 
-    Generic = ['Selector', Mapping]
+    Generic = typing.Union['Selector', typing.Mapping]
 
     def __init__(
             self,
