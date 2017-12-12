@@ -29,21 +29,26 @@ class Range(Siftable):
 
     """
 
-    Generic = Union['Range', Real, str, Iterable]
+    Generic = Union['Range', Real, Iterable, str]
 
     @classmethod
     def _from_other(cls, obj):
         if isinstance(obj, Real):
             return cls.from_real(obj)
-        elif isinstance(obj, str):
-            return cls.from_string(obj)
         elif isinstance(obj, Iterable):
             return cls.from_iterable(obj)
+        elif isinstance(obj, str):
+            return cls.from_string(obj)
 
     @classmethod
     def from_real(cls, n: Real):
         """ Convert real numbers as exact values. """
         return cls(n)
+
+    @classmethod
+    def from_iterable(cls, i: Iterable):
+        """ Convert tuples and lists. """
+        return cls(*i)
 
     @classmethod
     def from_string(cls, s: str):
@@ -55,11 +60,6 @@ class Range(Siftable):
         min_ = float(min_str) if min_str else ...
         max_ = float(max_str) if max_str else (... if max_str == '' else None)
         return cls(min_, max_)
-
-    @classmethod
-    def from_iterable(cls, i: Iterable):
-        """ Convert tuples and lists. """
-        return cls(*i)
 
     def __init__(self, min_: Real, max_: Real = None):
         self.min: Real = min_
