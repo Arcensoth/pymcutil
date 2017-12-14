@@ -34,7 +34,8 @@ class SelectorArguments(DataMap):
             x=x, y=y, z=z, dx=dx, dy=dy, dz=dz, x_rotation=x_rotation, y_rotation=y_rotation, distance=distance,
             level=level, type_=type_, not_types=not_types, name=name, not_names=not_names, team=team,
             not_teams=not_teams, gamemode=gamemode, not_gamemodes=not_gamemodes, tags=tags, not_tags=not_tags,
-            nbts=nbts, not_nbts=not_nbts, scores=scores, advancements=advancements, sort=sort, limit=limit)
+            nbts=nbts, not_nbts=not_nbts, scores=scores, advancements=advancements, sort=sort, limit=limit,
+        )
 
     @property
     def x(self) -> Union[Real, None]:
