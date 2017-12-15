@@ -21,7 +21,7 @@ class DataMap(collections.MutableMapping):
         return self._data.__len__()
 
     def __iter__(self):
-        return self._data.items()
+        yield from self._data.items()
 
     def _get(self, name: str):
         return self._data.get(name)
