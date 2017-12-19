@@ -4,8 +4,8 @@ BASE = 'a'
 
 
 class AllPlayersSelector(Selector):
-    @classmethod
-    def base(cls):
+    @property
+    def base(self) -> str:
         return BASE
 
 

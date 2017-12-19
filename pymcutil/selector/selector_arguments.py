@@ -19,7 +19,7 @@ class SelectorArguments(DataMap):
             x_rotation: Range = None, y_rotation: Range = None,
             distance: Range = None,
             level: Range = None,
-            type_: str = None, not_types: RepeatableArgument[str] = None,
+            type: str = None, not_types: RepeatableArgument[str] = None,
             name: str = None, not_names: RepeatableArgument[str] = None,
             team: str = None, not_teams: RepeatableArgument[str] = None,
             gamemode: Gamemode = None, not_gamemodes: RepeatableArgument[Gamemode] = None,
@@ -32,10 +32,13 @@ class SelectorArguments(DataMap):
     ):
         super().__init__(
             x=x, y=y, z=z, dx=dx, dy=dy, dz=dz, x_rotation=x_rotation, y_rotation=y_rotation, distance=distance,
-            level=level, type_=type_, not_types=not_types, name=name, not_names=not_names, team=team,
+            level=level, type=type, not_types=not_types, name=name, not_names=not_names, team=team,
             not_teams=not_teams, gamemode=gamemode, not_gamemodes=not_gamemodes, tags=tags, not_tags=not_tags,
             nbts=nbts, not_nbts=not_nbts, scores=scores, advancements=advancements, sort=sort, limit=limit,
         )
+
+    def __str__(self):
+        return ''.join(('[', ','.join(['{}={}'.format(k, v) for k, v in self.items()]), ']'))
 
     @property
     def x(self) -> Union[Real, None]:
@@ -174,8 +177,8 @@ class SelectorArguments(DataMap):
         return self._get('not_types')
 
     @not_types.setter
-    def not_types(self, value: str):
-        self._set('not_types', value, str)
+    def not_types(self, value: RepeatableArgument[str]):
+        self._set('not_types', value, RepeatableArgument)
 
     @not_types.deleter
     def not_types(self):
@@ -198,8 +201,8 @@ class SelectorArguments(DataMap):
         return self._get('not_names')
 
     @not_names.setter
-    def not_names(self, value: str):
-        self._set('not_names', value, str)
+    def not_names(self, value: RepeatableArgument[str]):
+        self._set('not_names', value, RepeatableArgument)
 
     @not_names.deleter
     def not_names(self):
@@ -222,8 +225,8 @@ class SelectorArguments(DataMap):
         return self._get('not_teams')
 
     @not_teams.setter
-    def not_teams(self, value: str):
-        self._set('not_teams', value, str)
+    def not_teams(self, value: RepeatableArgument[str]):
+        self._set('not_teams', value, RepeatableArgument)
 
     @not_teams.deleter
     def not_teams(self):
@@ -246,8 +249,8 @@ class SelectorArguments(DataMap):
         return self._get('not_gamemodes')
 
     @not_gamemodes.setter
-    def not_gamemodes(self, value: Gamemode):
-        self._set('not_gamemodes', value, Gamemode)
+    def not_gamemodes(self, value: RepeatableArgument[Gamemode]):
+        self._set('not_gamemodes', value, RepeatableArgument)
 
     @not_gamemodes.deleter
     def not_gamemodes(self):
@@ -258,8 +261,8 @@ class SelectorArguments(DataMap):
         return self._get('tags')
 
     @tags.setter
-    def tags(self, value: str):
-        self._set('tags', value, str)
+    def tags(self, value: RepeatableArgument[str]):
+        self._set('tags', value, RepeatableArgument)
 
     @tags.deleter
     def tags(self):
@@ -270,8 +273,8 @@ class SelectorArguments(DataMap):
         return self._get('not_tags')
 
     @not_tags.setter
-    def not_tags(self, value: str):
-        self._set('not_tags', value, str)
+    def not_tags(self, value: RepeatableArgument[str]):
+        self._set('not_tags', value, RepeatableArgument)
 
     @not_tags.deleter
     def not_tags(self):
@@ -282,8 +285,8 @@ class SelectorArguments(DataMap):
         return self._get('nbts')
 
     @nbts.setter
-    def nbts(self, value: CompoundDataTag):
-        self._set('nbts', value, CompoundDataTag)
+    def nbts(self, value: RepeatableArgument[CompoundDataTag]):
+        self._set('nbts', value, RepeatableArgument)
 
     @nbts.deleter
     def nbts(self):
@@ -294,8 +297,8 @@ class SelectorArguments(DataMap):
         return self._get('not_nbts')
 
     @not_nbts.setter
-    def not_nbts(self, value: CompoundDataTag):
-        self._set('not_nbts', value, CompoundDataTag)
+    def not_nbts(self, value: RepeatableArgument[CompoundDataTag]):
+        self._set('not_nbts', value, RepeatableArgument)
 
     @not_nbts.deleter
     def not_nbts(self):

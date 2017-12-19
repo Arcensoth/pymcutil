@@ -4,8 +4,8 @@ BASE = 'r'
 
 
 class RandomSelector(Selector):
-    @classmethod
-    def base(cls) -> str:
+    @property
+    def base(self) -> str:
         return BASE
 
 

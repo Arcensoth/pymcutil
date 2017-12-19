@@ -36,7 +36,7 @@ class Selector(MappingSiftable):
             x_rotation: Range.Generic = None, y_rotation: Range.Generic = None,
             distance: Range.Generic = None,
             level: Range.Generic = None,
-            type_: str = None, not_types: RepeatableString = None,
+            type: str = None, not_types: RepeatableString = None,
             name: str = None, not_names: RepeatableString = None,
             team: str = None, not_teams: RepeatableString = None,
             gamemode: Gamemode = None, not_gamemodes: RepeatableGamemode = None,
@@ -51,7 +51,7 @@ class Selector(MappingSiftable):
         position = Position.sift(position, None)
         volume = Position.sift(volume, None)
 
-        self.arguments = SelectorArguments(
+        self._arguments = SelectorArguments(
             x=first(x, position.x if isinstance(position, Position) else None),
             y=first(y, position.y if isinstance(position, Position) else None),
             z=first(z, position.z if isinstance(position, Position) else None),
@@ -67,7 +67,7 @@ class Selector(MappingSiftable):
 
             level=Range.sift(level, None),
 
-            type_=type_,
+            type=type,
             not_types=RepeatableArgument.expand(not_types),
 
             name=name,
@@ -95,22 +95,13 @@ class Selector(MappingSiftable):
         )
 
     def __str__(self):
-        innards = ','.join(('{}={}'.format(k, v) for k, v in self.expanded_items()))
-        return ''.join((
-            '@',
-            self.base,
-            *(('[', innards, ']') if innards else ()),
-        ))
+        return '@{}{}'.format(self.base, self.arguments or '')
 
-    def expanded_items(self):
-        # We need to expand `RepeatableArguments` to get several items per key.
-        for k, v in self.arguments:
-            if isinstance(v, RepeatableArgument):
-                yield from ((k, rv) for rv in v.values)
-            else:
-                yield k, v
+    @property
+    def arguments(self) -> SelectorArguments:
+        return self._arguments
 
-    @classmethod
+    @property
     @abc.abstractmethod
-    def base(cls) -> str:
+    def base(self) -> str:
         """ Return the base selector type. For example, the `s` in `@s`. """

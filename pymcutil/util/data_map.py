@@ -21,13 +21,15 @@ class DataMap(collections.MutableMapping):
         return self._data.__len__()
 
     def __iter__(self):
-        yield from self._data.items()
+        return self._data.__iter__()
 
     def _get(self, name: str):
         return self._data.get(name)
 
-    def _set(self, name: str, value, type_: type):
-        assert isinstance(value, type_)
+    def _set(self, name: str, value: object, type_: type):
+        if not isinstance(value, type_):
+            raise ValueError('Property "{}" must be type "{}", but got "{}"'.format(
+                name, type_.__name__, value.__class__.__name__))
         self._data[name] = value
 
     def _del(self, name: str):
