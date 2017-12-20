@@ -1,9 +1,11 @@
-from typing import List, Iterable
+from typing import Iterable, List, Union
 
 from pymcutil.util.siftable import SequenceSiftable
 
 
 class Vector(Iterable, SequenceSiftable):
+    Generic = Union['Vector', Iterable]
+
     def __init__(self, *components):
         # Don't cast potential subtypes of float into normal floats!
         self._components = [c if isinstance(c, float) else float(c) for c in components]

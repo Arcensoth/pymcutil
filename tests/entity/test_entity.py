@@ -2,7 +2,7 @@ import unittest
 
 from pymcutil.data_tag.compound_data_tag import CompoundDataTag
 from pymcutil.data_tag.string_data_tag import StringDataTag
-from pymcutil.entity.entity import Entity
+from pymcutil.entity.abc.entity import Entity
 
 
 class EntityTestCase(unittest.TestCase):

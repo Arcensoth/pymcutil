@@ -1,65 +1,75 @@
 import unittest
+from collections import namedtuple
 
 from pymcutil.position.position import Position
 from pymcutil.selector import selectors
 
 
+Point = namedtuple('Point', ['x', 'y'])
+
+p1 = Point(1, 2)
+p1.x
+
+
 class SelectorTestCase(unittest.TestCase):
-    def test_base_player(self):
-        # selectors.SELF.arguments.
-        self.assertEqual(
-            '@p',
-            str(selectors.PLAYER))
+    def test(self):
+        s = selectors.entities(name='Bob')
+        print(s)
 
-    def test_base_random(self):
-        self.assertEqual(
-            '@r',
-            str(selectors.RANDOM))
-
-    def test_base_all_players(self):
-        self.assertEqual(
-            '@a',
-            str(selectors.ALL_PLAYERS))
-
-    def test_base_entities(self):
-        self.assertEqual(
-            '@e',
-            str(selectors.ENTITIES))
-
-    def test_base_self(self):
-        self.assertEqual(
-            '@s',
-            str(selectors.SELF))
-
-    def test_argument_position(self):
-        self.assertEqual(
-            '@e[x=1.0,y=2.0,z=3.0]',
-            str(selectors.entities(position=Position(1, 2, 3))))
-
-    def test_argument_position_with_floats(self):
-        self.assertEqual(
-            '@e[x=1.9,y=2.5,z=3.1]',
-            str(selectors.entities(position=Position(1.9, 2.5, 3.1))))
-
-    def test_argument_volume(self):
-        self.assertEqual(
-            '@e[dx=4.0,dy=9.0,dz=16.0]',
-            str(selectors.entities(volume=Position(4, 9, 16))))
-
-    def test_argument_volume_with_floats(self):
-        self.assertEqual(
-            '@e[dx=4.9,dy=9.5,dz=16.1]',
-            str(selectors.entities(volume=Position(4.9, 9.5, 16.1))))
-
-    def test_argument_tags(self):
-        self.assertEqual(
-            '@e[tag=foo,tag=bar]',
-            str(selectors.entities(tags=['foo', 'bar'])))
-
-    def test_argument_not_tags(self):
-        self.assertEqual(
-            '@e[tag=!foo,tag=!bar]',
-            str(selectors.entities(not_tags=['foo', 'bar'])))
+    # def test_base_player(self):
+    #     self.assertEqual(
+    #         '@p',
+    #         str(selectors.PLAYER))
+    #
+    # def test_base_random(self):
+    #     self.assertEqual(
+    #         '@r',
+    #         str(selectors.RANDOM))
+    #
+    # def test_base_all_players(self):
+    #     self.assertEqual(
+    #         '@a',
+    #         str(selectors.ALL_PLAYERS))
+    #
+    # def test_base_entities(self):
+    #     self.assertEqual(
+    #         '@e',
+    #         str(selectors.ENTITIES))
+    #
+    # def test_base_self(self):
+    #     self.assertEqual(
+    #         '@s',
+    #         str(selectors.SELF))
+    #
+    # def test_argument_position(self):
+    #     self.assertEqual(
+    #         '@e[x=1.0,y=2.0,z=3.0]',
+    #         str(selectors.entities(position=Position(1, 2, 3))))
+    #
+    # def test_argument_position_with_floats(self):
+    #     self.assertEqual(
+    #         '@e[x=1.9,y=2.5,z=3.1]',
+    #         str(selectors.entities(position=Position(1.9, 2.5, 3.1))))
+    #
+    # def test_argument_volume(self):
+    #     self.assertEqual(
+    #         '@e[dx=4.0,dy=9.0,dz=16.0]',
+    #         str(selectors.entities(volume=Position(4, 9, 16))))
+    #
+    # def test_argument_volume_with_floats(self):
+    #     self.assertEqual(
+    #         '@e[dx=4.9,dy=9.5,dz=16.1]',
+    #         str(selectors.entities(volume=Position(4.9, 9.5, 16.1))))
+    #
+    # def test_argument_tags(self):
+    #     self.assertEqual(
+    #         '@e[tag=foo,tag=bar]',
+    #         str(selectors.entities(tags=['foo', 'bar'])))
+    #
+    # def test_argument_not_tags(self):
+    #     self.assertEqual(
+    #         '@e[tag=!foo,tag=!bar]',
+    #         str(selectors.entities(not_tags=['foo', 'bar'])))
 
     # def test_argument_type(self):
     #     self.assertEqual(

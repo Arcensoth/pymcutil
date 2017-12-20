@@ -4,6 +4,8 @@ from pymcutil.util.siftable import Siftable
 
 
 class Symbol(Siftable, collections.Hashable):
+    Generic = ['Symbol', str]
+
     def __init__(self, value):
         self.value = value
 

@@ -1,5 +1,3 @@
-from typing import Iterable, Union
-
 from pymcutil.position.rc import RC
 from pymcutil.position.vector_3d import Vector3D
 
@@ -9,8 +7,6 @@ class Position(Vector3D):
     position operations are defined under the inherited Vector class, meaning we can conveniently add, subtract, etc
     positions from one another. We can also make a position relative by invoking the ~ operator on it, or turn
     individual coordinates relative by explicitly using the RC class. """
-
-    Generic = Union['Position', Iterable]
 
     @classmethod
     def _from_other(cls, obj):
