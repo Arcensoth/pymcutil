@@ -1,10 +1,11 @@
 import collections
+from typing import Union
 
 from pymcutil.util.siftable import Siftable
 
 
 class Symbol(Siftable, collections.Hashable):
-    Generic = ['Symbol', str]
+    Generic = Union['Symbol', str]
 
     def __init__(self, value):
         self.value = value
