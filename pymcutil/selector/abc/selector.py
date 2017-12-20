@@ -99,7 +99,7 @@ class Selector(MappingSiftable):
 
         self.advancements: Optional[AdvancementSet] = AdvancementSet.sift(advancements, None)
 
-        self.sort = Optional[SelectorSort] = SelectorSort.sift(sort, None)
+        self.sort: Optional[SelectorSort] = SelectorSort.sift(sort, None)
 
         self.limit: Optional[int] = nullable_int(limit)
 
