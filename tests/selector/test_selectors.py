@@ -1,6 +1,5 @@
 import unittest
 
-from pymcutil.position.position import Position
 from pymcutil.selector import selectors
 
 
@@ -33,22 +32,22 @@ class SelectorTestCase(unittest.TestCase):
     def test_argument_position(self):
         self.assertEqual(
             '@e[x=1.0,y=2.0,z=3.0]',
-            str(selectors.entities(position=Position(1, 2, 3))))
+            str(selectors.entities(position=(1, 2, 3))))
 
     def test_argument_position_with_floats(self):
         self.assertEqual(
             '@e[x=1.9,y=2.5,z=3.1]',
-            str(selectors.entities(position=Position(1.9, 2.5, 3.1))))
+            str(selectors.entities(position=(1.9, 2.5, 3.1))))
 
     def test_argument_volume(self):
         self.assertEqual(
             '@e[dx=4.0,dy=9.0,dz=16.0]',
-            str(selectors.entities(volume=Position(4, 9, 16))))
+            str(selectors.entities(volume=(4, 9, 16))))
 
     def test_argument_volume_with_floats(self):
         self.assertEqual(
             '@e[dx=4.9,dy=9.5,dz=16.1]',
-            str(selectors.entities(volume=Position(4.9, 9.5, 16.1))))
+            str(selectors.entities(volume=(4.9, 9.5, 16.1))))
 
     def test_argument_tags(self):
         self.assertEqual(
