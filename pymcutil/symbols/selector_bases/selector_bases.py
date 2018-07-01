@@ -5,8 +5,8 @@ class SelectorBase(Symbol):
     pass
 
 
-all_players = SelectorBase('all_players')
-entities = SelectorBase('entities')
-player = SelectorBase('player')
-random = SelectorBase('random')
-self = SelectorBase('self')
+all_players = SelectorBase('a')
+entities = SelectorBase('e')
+player = SelectorBase('p')
+random = SelectorBase('r')
+self = SelectorBase('s')
