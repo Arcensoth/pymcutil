@@ -1,11 +1,11 @@
 # pymcutil
-[![Master Build Status Badge]](https://travis-ci.org/Arcensoth/pymcutil)
-[![Master Code Quality Badge]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730158)
-[![Master Code Coverage Badge]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730158)
+[![build-badge-master]](https://travis-ci.org/Arcensoth/pymcutil)
+[![quality-badge-master]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730158)
+[![coverage-badge-master]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730158)
 
-[![Dev Build Status Badge]](https://travis-ci.org/Arcensoth/pymcutil)
-[![Dev Code Quality Badge]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730157)
-[![Dev Code Coverage Badge]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730157)
+[![build-badge-dev]](https://travis-ci.org/Arcensoth/pymcutil)
+[![quality-badge-dev]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730157)
+[![coverage-badge-dev]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730157)
 
 An expressive Minecraft utility library revolving around data manipulation and generation.
 
@@ -22,9 +22,9 @@ The goal of this project is to provide a flexible suite of development tools for
 ## Requirements
 * [Python](https://www.python.org/) 3.6+
 
-[Master Build Status Badge]: https://img.shields.io/travis/Arcensoth/pymcutil/master.svg?label=build
-[Master Code Quality Badge]: https://img.shields.io/codacy/grade/b038637bf42e45558d2e3418aa10318b/master.svg?label=quality
-[Master Code Coverage Badge]: https://img.shields.io/codacy/coverage/b038637bf42e45558d2e3418aa10318b/master.svg?label=coverage
-[Dev Build Status Badge]: https://img.shields.io/travis/Arcensoth/pymcutil/dev.svg?label=dev+build
-[Dev Code Quality Badge]: https://img.shields.io/codacy/grade/b038637bf42e45558d2e3418aa10318b/dev.svg?label=dev+quality
-[Dev Code Coverage Badge]: https://img.shields.io/codacy/coverage/b038637bf42e45558d2e3418aa10318b/dev.svg?label=dev+coverage
+[build-badge-master]: https://img.shields.io/travis/Arcensoth/pymcutil/master.svg?label=build
+[quality-badge-master]: https://img.shields.io/codacy/grade/b038637bf42e45558d2e3418aa10318b/master.svg?label=quality
+[coverage-badge-master]: https://img.shields.io/codacy/coverage/b038637bf42e45558d2e3418aa10318b/master.svg?label=coverage
+[build-badge-dev]: https://img.shields.io/travis/Arcensoth/pymcutil/dev.svg?label=dev+build
+[quality-badge-dev]: https://img.shields.io/codacy/grade/b038637bf42e45558d2e3418aa10318b/dev.svg?label=dev+quality
+[coverage-badge-dev]: https://img.shields.io/codacy/coverage/b038637bf42e45558d2e3418aa10318b/dev.svg?label=dev+coverage
