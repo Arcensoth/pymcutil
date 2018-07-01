@@ -1,7 +1,7 @@
 # pymcutil
 [![Build Status Badge]](https://travis-ci.org/Arcensoth/pymcutil)
-[![Code Quality Badge]](https://www.codacy.com/app/Arcensoth/pymcutil)
-[![Code Coverage Badge]](https://codecov.io/gh/Arcensoth/pymcutil)
+[![Code Quality Badge]](https://app.codacy.com/project/Arcensoth/pymcutil)
+[![Code Coverage Badge]](https://app.codacy.com/project/Arcensoth/pymcutil)
 
 An expressive Minecraft utility library revolving around data manipulation and generation.
 
@@ -20,4 +20,4 @@ The goal of this project is to provide a flexible suite of development tools for
 
 [Build Status Badge]: https://img.shields.io/travis/Arcensoth/pymcutil.svg?label=build
 [Code Quality Badge]: https://img.shields.io/codacy/grade/b038637bf42e45558d2e3418aa10318b.svg?label=quality
-[Code Coverage Badge]: https://img.shields.io/codecov/c/github/Arcensoth/pymcutil.svg?label=coverage
+[Code Coverage Badge]: https://img.shields.io/codacy/coverage/b038637bf42e45558d2e3418aa10318b.svg?label=coverage
