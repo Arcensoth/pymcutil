@@ -36,10 +36,10 @@ class Range(Siftable):
     def _from_other(cls, obj):
         if isinstance(obj, Real):
             return cls.from_real(obj)
-        elif isinstance(obj, Iterable):
-            return cls.from_iterable(obj)
         elif isinstance(obj, str):
             return cls.from_string(obj)
+        elif isinstance(obj, Iterable):
+            return cls.from_iterable(obj)
 
     @classmethod
     def from_real(cls, n: Real):
