@@ -24,7 +24,7 @@ The goal of this project is to provide a flexible suite of development tools for
 
 [build-badge-master]: https://img.shields.io/travis/Arcensoth/pymcutil/master.svg?label=build
 [quality-badge-master]: https://img.shields.io/codacy/grade/b038637bf42e45558d2e3418aa10318b/master.svg?label=quality
-[coverage-badge-master]: https://img.shields.io/codacy/coverage/b038637bf42e45558d2e3418aa10318b/master.svg?label=coverage
+[coverage-badge-master]: https://img.shields.io/codecov/c/github/Arcensoth/pymcutil/master.svg?label=coverage
 [build-badge-dev]: https://img.shields.io/travis/Arcensoth/pymcutil/dev.svg?label=dev+build
 [quality-badge-dev]: https://img.shields.io/codacy/grade/b038637bf42e45558d2e3418aa10318b/dev.svg?label=dev+quality
-[coverage-badge-dev]: https://img.shields.io/codacy/coverage/b038637bf42e45558d2e3418aa10318b/dev.svg?label=dev+coverage
+[coverage-badge-dev]: https://img.shields.io/codecov/c/github/Arcensoth/pymcutil/dev.svg?label=dev+coverage
