@@ -1,11 +1,11 @@
 # pymcutil
 [![build-badge-master]](https://travis-ci.org/Arcensoth/pymcutil)
 [![quality-badge-master]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730158)
-[![coverage-badge-master]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730158)
+[![coverage-badge-master]](https://codecov.io/gh/Arcensoth/pymcutil/branch/master)
 
 [![build-badge-dev]](https://travis-ci.org/Arcensoth/pymcutil)
 [![quality-badge-dev]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730157)
-[![coverage-badge-dev]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730157)
+[![coverage-badge-dev]](https://codecov.io/gh/Arcensoth/pymcutil/branch/dev)
 
 An expressive Minecraft utility library revolving around data manipulation and generation.
 
