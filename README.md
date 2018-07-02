@@ -2,10 +2,8 @@
 [![build-badge-master]](https://travis-ci.org/Arcensoth/pymcutil)
 [![quality-badge-master]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730158)
 [![coverage-badge-master]](https://codecov.io/gh/Arcensoth/pymcutil/branch/master)
-
-[![build-badge-dev]](https://travis-ci.org/Arcensoth/pymcutil)
-[![quality-badge-dev]](https://app.codacy.com/project/Arcensoth/pymcutil/dashboard?branchId=4730157)
-[![coverage-badge-dev]](https://codecov.io/gh/Arcensoth/pymcutil/branch/dev)
+[![package-badge]](https://pypi.python.org/pypi/pymcutil/)
+[![version-badge]](https://pypi.python.org/pypi/pymcutil/)
 
 An expressive Minecraft utility library revolving around data manipulation and generation.
 
@@ -25,6 +23,5 @@ The goal of this project is to provide a flexible suite of development tools for
 [build-badge-master]: https://img.shields.io/travis/Arcensoth/pymcutil/master.svg?label=build
 [quality-badge-master]: https://img.shields.io/codacy/grade/b038637bf42e45558d2e3418aa10318b/master.svg?label=quality
 [coverage-badge-master]: https://img.shields.io/codecov/c/github/Arcensoth/pymcutil/master.svg?label=coverage
-[build-badge-dev]: https://img.shields.io/travis/Arcensoth/pymcutil/dev.svg?label=dev+build
-[quality-badge-dev]: https://img.shields.io/codacy/grade/b038637bf42e45558d2e3418aa10318b/dev.svg?label=dev+quality
-[coverage-badge-dev]: https://img.shields.io/codecov/c/github/Arcensoth/pymcutil/dev.svg?label=dev+coverage
+[package-badge]: https://img.shields.io/pypi/v/pymcutil.svg
+[version-badge]: https://img.shields.io/pypi/pyversions/pymcutil.svg
